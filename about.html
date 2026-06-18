@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Dashello</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+<script>
+var DASHELLO_BTN_TEXT = "Try For Free";
+var DASHELLO_BTN_LINK = "https://app.dashello.co";
+
+window.addEventListener('DOMContentLoaded', function() {
+  var btns = document.querySelectorAll('.btn-global');
+  btns.forEach(function(btn) {
+    btn.textContent = DASHELLO_BTN_TEXT;
+    btn.href = DASHELLO_BTN_LINK;
+  });
+});
+</script>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#0584EC;--blue-dark:#0468BE;--navy:#0F172A;--off:#F4F8FF}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#fff;color:#1a1a2e;overflow-x:hidden}
+
+/* ---- SHARED UTILITIES ---- */
+.section-tag{display:inline-block;background:#E6F1FB;color:#0468BE;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;border-radius:6px;margin-bottom:16px}
+.section-tag-white{display:inline-block;background:rgba(255,255,255,0.15);color:#fff;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;border-radius:6px;margin-bottom:16px}
+.section-title{font-size:clamp(26px,3.5vw,40px);font-weight:800;color:#1a1a2e;line-height:1.2;margin-bottom:12px;letter-spacing:-0.5px}
+.section-title-white{font-size:clamp(26px,3.5vw,40px);font-weight:800;color:#fff;line-height:1.2;margin-bottom:12px;letter-spacing:-0.5px}
+.section-sub{font-size:15px;color:#555;line-height:1.75;margin-bottom:32px;max-width:620px}
+.section-sub-white{font-size:15px;color:rgba(255,255,255,0.8);line-height:1.75;margin-bottom:32px;max-width:600px}
+
+/* ---- IMAGE ---- */
+.pg-img{width:100%;border-radius:20px;display:block;object-fit:cover;object-position:center top}
+
+/* ---- BUTTONS ---- */
+.btn-white{background:#fff;color:var(--blue);font-weight:700;font-size:14px;padding:13px 28px;border-radius:10px;text-decoration:none;display:inline-block;transition:transform 0.15s;margin-top:24px}
+.btn-white:hover{transform:translateY(-2px)}
+.btn-blue{background:var(--blue);color:#fff;font-weight:700;font-size:14px;padding:13px 28px;border-radius:10px;text-decoration:none;display:inline-block;transition:transform 0.15s;margin-top:24px}
+.btn-blue:hover{transform:translateY(-2px)}
+.btn-center{text-align:center;margin-top:8px}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+nav{background:transparent;padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;position:absolute;top:0;left:0;right:0;z-index:100}
+.nav-logo-wrap{display:flex;flex-direction:column;gap:2px}
+.nav-logo-wrap img{height:32px;width:auto}
+.nav-cta{background:#fff;color:var(--blue);font-weight:700;font-size:14px;padding:10px 22px;border-radius:8px;text-decoration:none;transition:transform 0.15s}
+.nav-cta:hover{transform:scale(1.03)}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{background:var(--blue);padding:120px 5% 80px;overflow:hidden;position:relative}
+.hero::before{content:'';position:absolute;top:-60px;right:-80px;width:500px;height:500px;background:rgba(255,255,255,0.04);border-radius:50%;pointer-events:none}
+.hero-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-text h1{font-size:clamp(36px,5vw,60px);font-weight:800;color:#fff;line-height:1.12;margin-bottom:20px;letter-spacing:-1px}
+.hero-text p{font-size:clamp(14px,1.8vw,17px);color:rgba(255,255,255,0.82);line-height:1.7;margin-bottom:8px}
+.hero-img img{width:100%;border-radius:20px;display:block;filter:brightness(0.88) contrast(1.15)}
+
+/* ============================================================
+   VALUE
+   ============================================================ */
+.value{background:#fff;padding:80px 5%;position:relative;overflow:hidden}
+.value::before{content:'';position:absolute;top:-120px;right:-120px;width:480px;height:480px;background:radial-gradient(circle,rgba(5,132,236,0.07) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.value-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:1}
+.value-text h2{font-size:clamp(26px,3.5vw,40px);font-weight:800;color:#1a1a2e;line-height:1.2;margin-bottom:16px;letter-spacing:-0.5px}
+.value-text p{color:#555;font-size:15px;line-height:1.7;margin-bottom:16px}
+.value-img img{width:100%;border-radius:20px;display:block}
+
+/* ============================================================
+   EMPOWER
+   ============================================================ */
+.empower{background:var(--off);padding:80px 5%}
+.empower-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.empower-img img{width:100%;border-radius:20px;display:block}
+.empower-text h2{font-size:clamp(26px,3.5vw,40px);font-weight:800;color:#1a1a2e;line-height:1.2;margin-bottom:16px;letter-spacing:-0.5px}
+.empower-text p{color:#555;font-size:15px;line-height:1.7;margin-bottom:16px}
+.empower-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px}
+.empower-item{background:#fff;border:1px solid rgba(5,132,236,0.1);border-radius:8px;padding:10px 14px;font-size:13px;color:#1a1a2e;font-weight:600;display:flex;align-items:center;gap:8px}
+.empower-item i{font-size:14px;color:#0584EC}
+
+/* ============================================================
+   CHALLENGES
+   ============================================================ */
+.challenges{background:var(--blue);padding:80px 5%}
+.challenges-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.challenges-img img{width:100%;border-radius:20px;display:block;filter:brightness(0.88) contrast(1.15)}
+.challenges-text p{font-size:15px;color:rgba(255,255,255,0.82);line-height:1.75;margin-bottom:16px}
+.challenge-list{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.challenge-list li{display:flex;align-items:center;gap:10px;font-size:14px;color:rgba(255,255,255,0.85);font-weight:600}
+.chk-icon{width:22px;height:22px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.chk-icon i{font-size:11px;color:#fff}
+
+/* ============================================================
+   INDUSTRY
+   ============================================================ */
+.industry{background:#fff;padding:80px 5%}
+.industry-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.industry-text h2{font-size:clamp(26px,3.5vw,40px);font-weight:800;color:#1a1a2e;line-height:1.2;margin-bottom:16px;letter-spacing:-0.5px}
+.industry-text p{color:#555;font-size:15px;line-height:1.7;margin-bottom:16px}
+.ind-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+.ind-card{background:var(--off);border-radius:12px;padding:18px;text-align:center;border:1px solid rgba(5,132,236,0.08)}
+.ind-card i{font-size:28px;color:#0584EC;margin-bottom:8px;display:block}
+.ind-card strong{display:block;font-size:13px;color:#1a1a2e;font-weight:700;margin-bottom:4px}
+.ind-card span{font-size:12px;color:#666;line-height:1.5}
+.industry-img img{width:100%;border-radius:20px;display:block}
+
+/* ============================================================
+   PARTNERSHIPS
+   ============================================================ */
+.partnerships{background:var(--off);padding:80px 5%}
+.partnerships-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.partnerships-img img{width:100%;border-radius:20px;display:block}
+.partnerships-text h2{font-size:clamp(26px,3.5vw,40px);font-weight:800;color:#1a1a2e;line-height:1.2;margin-bottom:16px;letter-spacing:-0.5px}
+.partnerships-text p{color:#555;font-size:15px;line-height:1.7;margin-bottom:16px}
+
+/* ============================================================
+   CLOSING
+   ============================================================ */
+.about-close{background:var(--navy);padding:80px 5%;position:relative;overflow:hidden;text-align:center}
+.about-close::before{content:'';position:absolute;top:-150px;left:50%;transform:translateX(-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(5,132,236,0.12) 0%,transparent 65%);border-radius:50%;pointer-events:none}
+.about-close-inner{max-width:700px;margin:0 auto;position:relative;z-index:1}
+.about-close-inner h2{font-size:clamp(28px,4vw,48px);font-weight:800;color:#fff;line-height:1.15;margin-bottom:16px;letter-spacing:-0.5px}
+.about-close-inner p{font-size:15px;color:rgba(255,255,255,0.7);line-height:1.75;margin-bottom:8px}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{background:#000;padding:48px 5%}
+.footer-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:start}
+.footer-logo-wrap img{height:32px;width:auto;display:block;margin-bottom:6px}
+.footer-tagline{color:#fff;font-size:10.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-top:3px;line-height:1;padding-left:1px;margin-bottom:8px}
+.footer-copy{font-size:12px;color:#555;margin-top:4px}
+.footer-links h4{font-size:14px;font-weight:700;color:#fff;margin-bottom:16px}
+.footer-links ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-links li a{font-size:13px;color:#aaa;text-decoration:none;transition:color 0.15s;font-weight:600}
+.footer-links li a:hover{color:#fff}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:768px){
+  nav{padding:0 20px}
+  .hero-inner,.value-inner,.empower-inner,.challenges-inner,.industry-inner,.partnerships-inner{grid-template-columns:1fr}
+  .hero{padding:100px 20px 60px}
+  .value,.empower,.challenges,.industry,.partnerships,.about-close{padding-left:20px;padding-right:20px}
+  .empower-grid,.ind-grid{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav>
+<a href="index.html" style="text-decoration:none">
+  <div class="nav-logo-wrap">
+    <img src="images/2023/08/White-Logo-Full.png" alt="Dashello" style="height:32px;width:auto;display:block">
+    <div style="color:#fff;font-size:10.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-top:3px;line-height:1;padding-left:1px">You Can Track That.</div>
+  </div>
+</a>
+  <a href="#" class="nav-cta btn-global">Try For Free</a>
+</nav>
+<!-- END: NAV -->
+
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="section-tag-white">About Dashello</div>
+      <h1>Understand Your Data. Own Your Decisions.</h1>
+      <p>At Dashello, we know many business owners are burdened with all the decisions they have to make on a daily basis. We are building software for 1 million business owners that will simplify their data in a relevant way to help them make better and faster decisions and grow their companies.</p>
+      <a href="#" class="btn-white btn-global">Try For Free</a>
+    </div>
+    <div class="hero-img">
+      <img src="images/2023/08/Smiling-Girl-Using-Dashello-App.png" alt="Smiling Girl Using Dashello App" class="pg-img">
+    </div>
+  </div>
+</section>
+<!-- END: HERO -->
+
+
+<!-- ============================================================
+     WHAT WE VALUE
+     ============================================================ -->
+<section class="value">
+  <div class="value-inner">
+    <div class="value-img">
+      <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80&fit=crop&crop=faces,top" alt="Team collaboration" class="pg-img">
+    </div>
+    <div class="value-text">
+      <div class="section-tag">What We Value</div>
+      <h2>Committed to making a positive impact</h2>
+      <p>At Dashello, our business is deeply committed to making a positive impact within our local community. We understand businesses' critical role in our local economy and social fabric. We provide solutions that support and empower them.</p>
+      <p>We believe that when local businesses thrive, the entire community benefits. That's why every feature we build starts with the same question: does this help a business owner make a better decision today?</p>
+      <a href="#" class="btn-blue btn-global">Try For Free</a>
+    </div>
+  </div>
+</section>
+<!-- END: WHAT WE VALUE -->
+
+
+<!-- ============================================================
+     EMPOWERING SMALL BUSINESSES
+     ============================================================ -->
+<section class="empower">
+  <div class="empower-inner">
+    <div class="empower-text">
+      <div class="section-tag">Empowering Small Businesses</div>
+      <h2>Built for the businesses that power our economy</h2>
+      <p>Our primary focus is empowering small business owners on a budget, $1-100M companies needing tailored dashboard solutions, and solopreneurs & startups looking for streamlined ways to manage their ventures.</p>
+      <p>We recognize these entrepreneurs' challenges, including financial constraints and economic uncertainties. By offering user-friendly dashboard solutions, we help them access and understand their vital business metrics, enabling them to make informed decisions quickly.</p>
+      <div class="empower-grid">
+        <div class="empower-item"><i class="ti ti-building" aria-hidden="true"></i> $1-100M Companies</div>
+        <div class="empower-item"><i class="ti ti-user" aria-hidden="true"></i> Solopreneurs</div>
+        <div class="empower-item"><i class="ti ti-rocket" aria-hidden="true"></i> Startups</div>
+        <div class="empower-item"><i class="ti ti-users" aria-hidden="true"></i> Small Business Owners</div>
+      </div>
+      <a href="#" class="btn-blue btn-global">Try For Free</a>
+    </div>
+    <div class="empower-img">
+      <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&q=80&fit=crop&crop=faces,top" alt="Business professional" class="pg-img">
+    </div>
+  </div>
+</section>
+<!-- END: EMPOWERING SMALL BUSINESSES -->
+
+
+<!-- ============================================================
+     ADDRESSING COMMON CHALLENGES
+     ============================================================ -->
+<section class="challenges">
+  <div class="challenges-inner">
+    <div class="challenges-img">
+      <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80&fit=crop&crop=faces,top" alt="Team solving challenges" class="pg-img" style="filter:brightness(0.88) contrast(1.15)">
+    </div>
+    <div class="challenges-text">
+      <div class="section-tag-white">Addressing Common Challenges</div>
+      <h2 class="section-title-white">Turning confusion into clarity</h2>
+      <p>Many local business owners struggle with everyday challenges — spending excessive time searching for meaningful data and struggling to interpret complex metrics. Dashello addresses these pain points by offering a comprehensive and accessible dashboard solution.</p>
+      <ul class="challenge-list">
+        <li><div class="chk-icon"><i class="ti ti-check" aria-hidden="true"></i></div> Eliminate hours spent hunting for data</li>
+        <li><div class="chk-icon"><i class="ti ti-check" aria-hidden="true"></i></div> Make sense of complex metrics at a glance</li>
+        <li><div class="chk-icon"><i class="ti ti-check" aria-hidden="true"></i></div> Track what matters most to your business</li>
+        <li><div class="chk-icon"><i class="ti ti-check" aria-hidden="true"></i></div> Empower your team with clearer direction</li>
+      </ul>
+      <p style="color:rgba(255,255,255,0.8);font-size:14px;line-height:1.7">Our software empowers business owners, department heads, and professionals to track their metrics in a practical way, eliminating confusion and enhancing decision-making.</p>
+      <a href="#" class="btn-white btn-global">Try For Free</a>
+    </div>
+  </div>
+</section>
+<!-- END: ADDRESSING COMMON CHALLENGES -->
+
+
+<!-- ============================================================
+     DIVERSE INDUSTRY REACH
+     ============================================================ -->
+<section class="industry">
+  <div class="industry-inner">
+    <div class="industry-text">
+      <div class="section-tag">Diverse Industry Reach</div>
+      <h2>From sports teams to bridge engineers</h2>
+      <p>Our impact extends across industries. By providing tailored solutions for tracking health stats and performance metrics for sports teams and industrial bridge metrics for engineers, we address specific pain points within these sectors, contributing to their efficiency and growth.</p>
+      <div class="ind-grid">
+        <div class="ind-card">
+          <i class="ti ti-ball" aria-hidden="true"></i>
+          <strong>Sports Teams</strong>
+          <span>Track health stats and performance metrics</span>
+        </div>
+        <div class="ind-card">
+          <i class="ti ti-bridge" aria-hidden="true"></i>
+          <strong>Engineering Firms</strong>
+          <span>Monitor industrial bridge metrics and more</span>
+        </div>
+        <div class="ind-card">
+          <i class="ti ti-chart-bar" aria-hidden="true"></i>
+          <strong>Retail & E-com</strong>
+          <span>Sales, inventory, and customer dashboards</span>
+        </div>
+        <div class="ind-card">
+          <i class="ti ti-medical-cross" aria-hidden="true"></i>
+          <strong>Healthcare</strong>
+          <span>Patient and operational metric tracking</span>
+        </div>
+      </div>
+      <a href="#" class="btn-blue btn-global">Try For Free</a>
+    </div>
+    <div class="industry-img">
+      <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80&fit=crop&crop=faces,top" alt="Diverse team" class="pg-img">
+    </div>
+  </div>
+</section>
+<!-- END: DIVERSE INDUSTRY REACH -->
+
+
+<!-- ============================================================
+     LOCAL BUSINESS PARTNERSHIPS
+     ============================================================ -->
+<section class="partnerships">
+  <div class="partnerships-inner">
+    <div class="partnerships-img">
+      <img src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=800&q=80&fit=crop&crop=faces,top" alt="Local business partnerships" class="pg-img">
+    </div>
+    <div class="partnerships-text">
+      <div class="section-tag">Local Business Partnerships</div>
+      <h2>Partnering with the businesses that build our community</h2>
+      <p>Our commitment to the local community goes beyond software solutions. We actively seek partnerships with local businesses, equipping them with the tools they need to face the challenges of today's business landscape confidently.</p>
+      <p>The community benefits from increased economic stability and growth as these businesses succeed. We believe in growing together — when our neighbors win, we all win.</p>
+      <a href="#" class="btn-blue btn-global">Try For Free</a>
+    </div>
+  </div>
+</section>
+<!-- END: LOCAL BUSINESS PARTNERSHIPS -->
+
+
+<!-- ============================================================
+     CLOSING
+     ============================================================ -->
+<section class="about-close">
+  <div class="about-close-inner">
+    <h2>Dashello For Businesses</h2>
+    <p>Our positive impact within our local community empowers businesses and offers solutions that address the unique challenges faced by our neighbors. By cultivating economic resilience and growth, we stand as a partner in progress, working hand in hand with our community to create better stability for their businesses and families.</p>
+    <a href="#" class="btn-white btn-global">Try For Free</a>
+  </div>
+</section>
+<!-- END: CLOSING -->
+
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="index.html" style="text-decoration:none">
+        <div class="footer-logo-wrap">
+          <img src="images/2023/08/White-Logo-Full.png" alt="Dashello">
+          <div class="footer-tagline">You Can Track That.</div>
+        </div>
+      </a>
+      <div class="footer-copy" id="footer-copy"></div>
+    </div>
+    <div class="footer-links">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="jobs.html">Jobs</a></li>
+        <li><a href="https://app.dashello.co/dev">Documentation</a></li>
+        <li><a href="privacy.html">Privacy & Security</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<!-- END: FOOTER -->
+
+
+<script>
+document.getElementById('footer-copy').textContent = '\u00A9' + new Date().getFullYear() + ' Trinitatis Licensing Inc. All Rights Reserved.';
+</script>
+
+</body>
+</html>

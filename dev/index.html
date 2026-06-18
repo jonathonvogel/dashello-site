@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>API Documentation — Dashello</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#0584EC;--blue-dark:#0468BE;--navy:#0F172A;--off:#F4F8FF}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#fff;color:#1a1a2e;overflow-x:hidden}
+
+/* ---- LAYOUT ---- */
+.doc-layout{display:flex;min-height:100vh;padding-top:72px}
+.doc-sidebar{width:280px;flex-shrink:0;background:var(--off);border-right:1px solid #e5e7eb;padding:32px 24px;position:fixed;top:72px;bottom:0;overflow-y:auto}
+.doc-main{flex:1;margin-left:280px;padding:48px 5% 80px;max-width:900px}
+.doc-sidebar h3{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#9CA3AF;margin-bottom:12px;margin-top:24px}
+.doc-sidebar h3:first-child{margin-top:0}
+.doc-sidebar a{display:block;font-size:13px;color:#555;text-decoration:none;padding:5px 0;font-weight:500;transition:color 0.15s}
+.doc-sidebar a:hover{color:var(--blue)}
+.doc-sidebar a.active{color:var(--blue);font-weight:700}
+
+/* ---- NAV (same as other pages) ---- */
+nav{background:var(--navy);padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;position:fixed;top:0;left:0;right:0;z-index:100}
+.nav-logo-wrap{display:flex;flex-direction:column;gap:2px}
+.nav-logo-wrap img{height:32px;width:auto}
+.nav-cta{background:#fff;color:var(--blue);font-weight:700;font-size:14px;padding:10px 22px;border-radius:8px;text-decoration:none;transition:transform 0.15s}
+.nav-cta:hover{transform:scale(1.03)}
+
+/* ---- DOC CONTENT ---- */
+.doc-section{margin-bottom:56px;scroll-margin-top:90px}
+.doc-section h1{font-size:clamp(28px,4vw,44px);font-weight:800;margin-bottom:12px;letter-spacing:-0.5px}
+.doc-section h2{font-size:clamp(20px,2.5vw,28px);font-weight:800;margin-bottom:16px;letter-spacing:-0.3px;padding-bottom:8px;border-bottom:2px solid var(--off)}
+.doc-section h3{font-size:16px;font-weight:700;margin-bottom:10px;margin-top:28px}
+.doc-section p{font-size:14px;color:#444;line-height:1.8;margin-bottom:14px}
+.doc-section ul{list-style:none;margin:12px 0 16px}
+.doc-section ul li{font-size:14px;color:#444;line-height:1.7;padding-left:18px;position:relative;margin-bottom:4px}
+.doc-section ul li::before{content:'\00B7';position:absolute;left:4px;color:var(--blue);font-weight:800}
+.doc-section table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+.doc-section th{text-align:left;padding:10px 12px;background:var(--off);font-weight:700;color:#1a1a2e;border:1px solid #e5e7eb}
+.doc-section td{padding:10px 12px;border:1px solid #e5e7eb;color:#444}
+.doc-section td:first-child{font-weight:600;color:#1a1a2e}
+
+/* ---- CODE BLOCKS ---- */
+.code-block{background:#1a1a2e;border-radius:10px;padding:20px;margin:16px 0;overflow-x:auto;position:relative}
+.code-block code{font-family:'SF Mono',SFMono-Regular,ui-monospace,monospace;font-size:13px;color:#e5e7eb;line-height:1.6;white-space:pre}
+.code-block .comment{color:#6B7280}
+.code-block .keyword{color:#93C5FD}
+.code-block .string{color:#A7F3D0}
+.code-block .method{color:#FDE68A}
+.code-block .highlight{color:#FCA5A5}
+
+/* ---- INFO BOX ---- */
+.info-box{background:var(--off);border-left:3px solid var(--blue);border-radius:8px;padding:16px 20px;margin:16px 0}
+.info-box p{margin-bottom:0;font-size:14px;color:#1a1a2e}
+.info-box p strong{color:var(--blue)}
+
+/* ---- TAGS ---- */
+.endpoint-tag{display:inline-block;font-size:11px;font-weight:800;padding:3px 8px;border-radius:4px;margin-right:6px;vertical-align:middle}
+.tag-post{background:#DCFCE7;color:#166534}
+.tag-get{background:#E6F1FB;color:#0468BE}
+.endpoint-url{font-family:'SF Mono',SFMono-Regular,ui-monospace,monospace;font-size:13px;color:#555;font-weight:600}
+
+/* ---- STEP ---- */
+.step-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--blue);color:#fff;font-size:12px;font-weight:800;border-radius:6px;margin-right:10px;flex-shrink:0}
+.step-row{display:flex;align-items:flex-start;gap:4px;margin-bottom:8px;font-size:14px;color:#444;line-height:1.6}
+
+/* ---- RESPONSIVE ---- */
+@media(max-width:900px){
+  .doc-sidebar{display:none}
+  .doc-main{margin-left:0;padding:24px 20px 80px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+<a href="../index.html" style="text-decoration:none">
+  <div class="nav-logo-wrap">
+    <img src="../images/2023/08/White-Logo-Full.png" alt="Dashello" style="height:32px;width:auto;display:block">
+    <div style="color:#fff;font-size:10.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-top:3px;line-height:1;padding-left:1px">You Can Track That.</div>
+  </div>
+</a>
+  <a href="https://app.dashello.co" class="nav-cta">Go to App</a>
+</nav>
+
+<div class="doc-layout">
+
+  <aside class="doc-sidebar">
+    <h3>Getting Started</h3>
+    <a href="#overview">Overview</a>
+    <a href="#authentication">Authentication</a>
+    <a href="#errors">Errors</a>
+
+    <h3>Endpoints</h3>
+    <a href="#ingest-metric">POST /ingest/metric</a>
+    <a href="#ingest-batch">POST /ingest/batch</a>
+    <a href="#ingest-data">POST /ingest/data</a>
+    <a href="#ingest-tasks">POST /ingest/tasks</a>
+    <a href="#webhooks">Webhooks</a>
+
+    <h3>Guides</h3>
+    <a href="#quickbooks">QuickBooks</a>
+    <a href="#stripe">Stripe</a>
+    <a href="#hubspot">HubSpot</a>
+    <a href="#zapier">Zapier / Make</a>
+
+    <h3>Resources</h3>
+    <a href="#rate-limits">Rate Limits</a>
+    <a href="#sdks">SDK Examples</a>
+  </aside>
+
+  <main class="doc-main">
+
+    <div class="doc-section" id="overview">
+      <h1>Dashello API</h1>
+      <p>Push any data into your Dashello dashboard — numbers, tasks, events, or complex objects. Every connected app is inbound-only. Dashello never pushes your data outward.</p>
+    </div>
+
+    <div class="doc-section" id="authentication">
+      <h2>Authentication</h2>
+      <p>Every request requires an API key sent as a Bearer token in the <code style="background:var(--off);padding:2px 6px;border-radius:4px;font-size:13px">Authorization</code> header. You generate API keys from your Dashello Settings page.</p>
+      <p><strong>Each API key is tied to your workspace.</strong> Data pushed with this key goes to your dashboard. Keys can be generated and revoked at any time from Settings → API Keys.</p>
+      <h3>How to authenticate</h3>
+      <div class="code-block"><code><span class="comment"># Include your API key in the Authorization header</span>
+curl https://dashello.co/api/ingest/metric \
+  -X POST \
+  -H <span class="string">"Authorization: Bearer dash_abc123..."</span> \
+  -H <span class="string">"Content-Type: application/json"</span> \
+  -d <span class="string">'{ "metric": "revenue", "value": 12345 }'</span></code></div>
+      <h3>Key format</h3>
+      <p>All API keys start with <code style="background:var(--off);padding:2px 6px;border-radius:4px">dash_</code> followed by a unique string. You can create named keys for each integration and revoke them individually.</p>
+      <h3>Header format</h3>
+      <div class="code-block"><code>Authorization: Bearer dash_your_api_key_here</code></div>
+    </div>
+
+    <div class="doc-section" id="errors">
+      <h2>Errors</h2>
+      <p>The API returns standard HTTP status codes and a JSON error body:</p>
+      <table>
+        <tr><th>Status</th><th>Error</th><th>Meaning</th></tr>
+        <tr><td>401</td><td><code>invalid_api_key</code></td><td>API key not found, revoked, or expired</td></tr>
+        <tr><td>400</td><td><code>invalid_payload</code></td><td>Missing required fields</td></tr>
+        <tr><td>404</td><td><code>mapping_not_found</code></td><td>No metric matched the incoming data</td></tr>
+        <tr><td>429</td><td><code>rate_limited</code></td><td>Too many requests. See rate limits below</td></tr>
+        <tr><td>500</td><td><code>internal_error</code></td><td>Something went wrong on our end</td></tr>
+      </table>
+      <div class="code-block"><code><span class="comment"># Example error response</span>
+{
+  <span class="string">"error"</span>: <span class="string">"invalid_api_key"</span>,
+  <span class="string">"message"</span>: <span class="string">"API key not found or revoked"</span>
+}</code></div>
+    </div>
+
+    <div class="doc-section" id="ingest-metric">
+      <h2>POST /ingest/metric</h2>
+      <p><span class="endpoint-tag tag-post">POST</span><span class="endpoint-url">https://dashello.co/api/ingest/metric</span></p>
+      <p>Push a single numerical value into a specific metric on your dashboard. This is the most common endpoint — use it for revenue, leads, costs, or any single number.</p>
+      <h3>Request body</h3>
+      <table>
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+        <tr><td>metric</td><td>string *required*</td><td>Name of the metric (matched by label, ID, or source connector mapping)</td></tr>
+        <tr><td>value</td><td>number *required*</td><td>The numerical value to record</td></tr>
+        <tr><td>source</td><td>string *optional*</td><td>Source app identifier (e.g. "quickbooks", "stripe")</td></tr>
+        <tr><td>timestamp</td><td>string *optional*</td><td>ISO 8601 timestamp. Defaults to now</td></tr>
+        <tr><td>metadata</td><td>object *optional*</td><td>Additional context stored with the data point</td></tr>
+      </table>
+      <div class="code-block"><code>curl https://dashello.co/api/ingest/metric \
+  -X POST \
+  -H <span class="string">"Authorization: Bearer dash_your_api_key"</span> \
+  -H <span class="string">"Content-Type: application/json"</span> \
+  -d <span class="string">'{
+    "metric": "revenue",
+    "value": 123456.78,
+    "source": "quickbooks",
+    "timestamp": "2026-05-20T12:00:00Z",
+    "metadata": { "currency": "USD" }
+  }'</span></code></div>
+      <h3>Response — success</h3>
+      <div class="code-block"><code>{
+  <span class="string">"ok"</span>: true,
+  <span class="string">"metric_id"</span>: <span class="string">"m_abc123"</span>,
+  <span class="string">"previous_value"</span>: <span class="string">"$119,000.00"</span>,
+  <span class="string">"new_value"</span>: <span class="string">"$123,456.78"</span>
+}</code></div>
+      <h3>Response — no matching metric (inboxed)</h3>
+      <div class="code-block"><code>{
+  <span class="string">"ok"</span>: true,
+  <span class="string">"inboxed"</span>: true,
+  <span class="string">"message"</span>: <span class="string">"No metric matched 'revenue'. Data stored in inbox for mapping."</span>
+}</code></div>
+      <div class="info-box"><p><strong>No matching metric?</strong> If your metric name doesn't match any existing box on your dashboard, the data is stored in your Inbox. You can browse the Inbox from the app's detail page and assign it to a metric box later.</p></div>
+    </div>
+
+    <div class="doc-section" id="ingest-batch">
+      <h2>POST /ingest/batch</h2>
+      <p><span class="endpoint-tag tag-post">POST</span><span class="endpoint-url">https://dashello.co/api/ingest/batch</span></p>
+      <p>Push multiple metric values in a single request. Use this for efficiency when sending multiple data points at once.</p>
+      <table>
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+        <tr><td>metrics</td><td>array *required*</td><td>Array of metric objects (see ingest/metric for each item's fields)</td></tr>
+        <tr><td>source</td><td>string *optional*</td><td>Default source label for all metrics in the batch</td></tr>
+      </table>
+      <div class="code-block"><code>curl https://dashello.co/api/ingest/batch \
+  -X POST \
+  -H <span class="string">"Authorization: Bearer dash_your_api_key"</span> \
+  -H <span class="string">"Content-Type: application/json"</span> \
+  -d <span class="string">'{
+    "metrics": [
+      { "metric": "revenue", "value": 50000, "source": "quickbooks" },
+      { "metric": "expenses", "value": 32000, "source": "quickbooks" },
+      { "metric": "profit", "value": 18000, "source": "quickbooks" }
+    ]
+  }'</span></code></div>
+      <div class="code-block"><code>{
+  <span class="string">"ok"</span>: true,
+  <span class="string">"results"</span>: [
+    { <span class="string">"metric"</span>: <span class="string">"revenue"</span>, <span class="string">"status"</span>: <span class="string">"updated"</span> },
+    { <span class="string">"metric"</span>: <span class="string">"expenses"</span>, <span class="string">"status"</span>: <span class="string">"updated"</span> },
+    { <span class="string">"metric"</span>: <span class="string">"profit"</span>, <span class="string">"status"</span>: <span class="string">"inboxed"</span>, <span class="string">"message"</span>: <span class="string">"No matching metric found"</span> }
+  ]
+}</code></div>
+    </div>
+
+    <div class="doc-section" id="ingest-data">
+      <h2>POST /ingest/data</h2>
+      <p><span class="endpoint-tag tag-post">POST</span><span class="endpoint-url">https://dashello.co/api/ingest/data</span></p>
+      <p>Push any JSON data into Dashello. Unlike <code style="background:var(--off);padding:2px 6px;border-radius:4px">/ingest/metric</code>, this endpoint accepts arbitrary objects, text, or complex data. If you have defined source connector mappings, the data will be automatically distributed to the right metric boxes. Otherwise, it goes to your inbox for manual assignment.</p>
+      <div class="code-block"><code>curl https://dashello.co/api/ingest/data \
+  -X POST \
+  -H <span class="string">"Authorization: Bearer dash_your_api_key"</span> \
+  -H <span class="string">"Content-Type: application/json"</span> \
+  -d <span class="string">'{
+    "source": "quickbooks",
+    "data_type": "invoice",
+    "invoice_id": "INV-1042",
+    "customer": "Acme Corp",
+    "total": 12500.00,
+    "status": "paid",
+    "due_date": "2026-06-01"
+  }'</span></code></div>
+      <div class="info-box"><p><strong>How mapping works:</strong> If you've configured a source connector for "quickbooks" with a mapping like <code style="background:rgba(5,132,236,0.1);padding:2px 4px;border-radius:3px">{"sourceField": "total", "metricId": "m_revenue"}</code>, the <code style="background:var(--off);padding:2px 4px;border-radius:3px">total</code> field will automatically update your revenue metric box. Everything else goes to your inbox.</p></div>
+    </div>
+
+    <div class="doc-section" id="ingest-tasks">
+      <h2>POST /ingest/tasks</h2>
+      <p><span class="endpoint-tag tag-post">POST</span><span class="endpoint-url">https://dashello.co/api/ingest/tasks</span></p>
+      <p>Push tasks directly into your Dashello Tasks page. This is useful for importing tasks from project management tools like Asana, Trello, or Jira.</p>
+      <div class="code-block"><code>curl https://dashello.co/api/ingest/tasks \
+  -X POST \
+  -H <span class="string">"Authorization: Bearer dash_your_api_key"</span> \
+  -H <span class="string">"Content-Type: application/json"</span> \
+  -d <span class="string">'{
+    "source": "asana",
+    "tasks": [
+      { "text": "Review Q2 budget", "dueDate": "2026-06-15", "priority": true },
+      { "text": "Update team on project status", "notes": "Include timeline changes" }
+    ]
+  }'</span></code></div>
+      <div class="code-block"><code>{
+  <span class="string">"ok"</span>: true,
+  <span class="string">"created"</span>: 2,
+  <span class="string">"total"</span>: 17
+}</code></div>
+    </div>
+
+    <div class="doc-section" id="webhooks">
+      <h2>Webhooks</h2>
+      <p>Dashello can receive native webhooks from popular apps. Instead of polling or manually pushing data, you set up a webhook URL in the third-party app's settings, and Dashello receives events in real-time.</p>
+      <table>
+        <tr><th>App</th><th>Webhook URL</th></tr>
+        <tr><td>QuickBooks</td><td><code style="font-size:12px">https://dashello.co/api/webhook/quickbooks?connector_id=xxx</code></td></tr>
+        <tr><td>Stripe</td><td><code style="font-size:12px">https://dashello.co/api/webhook/stripe?connector_id=xxx</code></td></tr>
+        <tr><td>HubSpot</td><td><code style="font-size:12px">https://dashello.co/api/webhook/hubspot?connector_id=xxx</code></td></tr>
+        <tr><td>Generic</td><td><code style="font-size:12px">https://dashello.co/api/webhook/generic?connector_id=xxx</code></td></tr>
+      </table>
+      <p>When you create a source connector in Dashello and map its fields to your metric boxes, the webhook endpoint automatically distributes incoming data. Without a connector, data goes to your inbox.</p>
+    </div>
+
+    <div class="doc-section" id="quickbooks">
+      <h2>QuickBooks Integration</h2>
+      <p>Connect QuickBooks to automatically sync your accounting data — revenue, expenses, invoices, and profit — directly into your Dashello dashboard.</p>
+      <div class="step-row"><span class="step-num">1</span> <strong>Create a source connector</strong> — In Dashello Settings → Integrations, click "Add New App" and select QuickBooks. Give it a name and save.</div>
+      <div class="step-row"><span class="step-num">2</span> <strong>Map your fields</strong> — Tell Dashello which QuickBooks fields go to which metric boxes. For example: "TotalIncome" → "Monthly Revenue", "TotalExpenses" → "Operating Costs".</div>
+      <div class="step-row"><span class="step-num">3</span> <strong>Set up the webhook</strong> — In QuickBooks, go to Settings → Webhooks and enter: <code style="background:var(--off);padding:2px 6px;border-radius:4px;font-size:12px">https://dashello.co/api/webhook/quickbooks?connector_id=your_connector_id</code></div>
+      <div class="step-row"><span class="step-num">4</span> <strong>Done</strong> — QuickBooks will now push data to Dashello automatically. You'll see it update in real-time on your dashboard.</div>
+      <p>Alternatively, use the direct API approach:</p>
+      <div class="code-block"><code>curl https://dashello.co/api/ingest/metric \
+  -X POST \
+  -H <span class="string">"Authorization: Bearer dash_your_api_key"</span> \
+  -H <span class="string">"Content-Type: application/json"</span> \
+  -d <span class="string">'{
+    "metric": "Total Income",
+    "value": 85000,
+    "source": "quickbooks"
+  }'</span></code></div>
+    </div>
+
+    <div class="doc-section" id="stripe">
+      <h2>Stripe Integration</h2>
+      <p>Connect Stripe to track payments, subscriptions, charges, and revenue metrics without any manual entry.</p>
+      <table>
+        <tr><th>Event</th><th>Metric</th></tr>
+        <tr><td><code>invoice.paid</code></td><td>Invoice Paid (amount)</td></tr>
+        <tr><td><code>invoice.payment_failed</code></td><td>Payment Failed (1)</td></tr>
+        <tr><td><code>charge.succeeded</code></td><td>Charge Amount</td></tr>
+        <tr><td><code>customer.subscription.created</code></td><td>Subscription Amount</td></tr>
+        <tr><td><code>customer.subscription.deleted</code></td><td>Subscription Cancelled (1)</td></tr>
+      </table>
+      <p>Set up the Stripe webhook endpoint in your Stripe Dashboard → Developers → Webhooks:</p>
+      <div class="code-block"><code>https://dashello.co/api/webhook/stripe?connector_id=your_connector_id</code></div>
+    </div>
+
+    <div class="doc-section" id="hubspot">
+      <h2>HubSpot Integration</h2>
+      <p>Sync CRM activity — new contacts, deals, meetings, and pipeline changes — to your Dashello dashboard.</p>
+      <table>
+        <tr><th>Event</th><th>Metric</th></tr>
+        <tr><td><code>contact.creation</code></td><td>New Contact (1)</td></tr>
+        <tr><td><code>deal.creation</code></td><td>New Deal (1)</td></tr>
+        <tr><td><code>deal.propertyChange (amount)</code></td><td>Deal Amount</td></tr>
+        <tr><td><code>engagement.creation</code></td><td>New Engagement (1)</td></tr>
+      </table>
+      <p>Set up the HubSpot webhook:</p>
+      <div class="code-block"><code>https://dashello.co/api/webhook/hubspot?connector_id=your_connector_id</code></div>
+    </div>
+
+    <div class="doc-section" id="zapier">
+      <h2>Zapier / Make Integration</h2>
+      <p>Use Zapier or Make (formerly Integromat) to connect Dashello with thousands of apps. There's no Dashello-specific Zap yet, but you can use the <strong>Webhooks by Zapier</strong> or <strong>HTTP</strong> module in Make.</p>
+      <h3>Zapier</h3>
+      <div class="step-row"><span class="step-num">1</span> <strong>Create a Zap</strong> — Choose your trigger app (e.g. Gmail, Typeform, Google Sheets).</div>
+      <div class="step-row"><span class="step-num">2</span> <strong>Add "Webhooks by Zapier" action</strong> — Select "POST" as the action event.</div>
+      <div class="step-row"><span class="step-num">3</span> <strong>Configure</strong> — URL: <code style="background:var(--off);padding:2px 6px;border-radius:4px;font-size:12px">https://dashello.co/api/ingest/metric</code> — Method: POST — Headers: <code style="background:var(--off);padding:2px 6px;border-radius:4px;font-size:12px">Authorization: Bearer dash_your_api_key</code> — Data: JSON body with metric and value.</div>
+      <div class="step-row"><span class="step-num">4</span> <strong>Test & publish</strong> — Run a test and turn on your Zap.</div>
+      <h3>Make (Integromat)</h3>
+      <p>Use the <strong>HTTP</strong> module → "Make a request" with the same configuration as above.</p>
+      <div class="code-block"><code>URL: https://dashello.co/api/ingest/metric
+Method: POST
+Headers:
+  Authorization: Bearer dash_your_api_key
+  Content-Type: application/json
+Body:
+{
+  "metric": "your_metric_name",
+  "value": 12345,
+  "source": "make"
+}</code></div>
+    </div>
+
+    <div class="doc-section" id="rate-limits">
+      <h2>Rate Limits</h2>
+      <table>
+        <tr><th>Limit</th><th>Value</th><th>Scope</th></tr>
+        <tr><td>Requests per minute</td><td>100</td><td>Per API key</td></tr>
+        <tr><td>Batch size</td><td>100 items</td><td>Per batch request</td></tr>
+        <tr><td>Payload size</td><td>5 MB</td><td>Per request</td></tr>
+      </table>
+      <p>Need higher limits? Contact us at <a href="mailto:hello@dashello.co" style="color:var(--blue);font-weight:600">hello@dashello.co</a>.</p>
+    </div>
+
+    <div class="doc-section" id="sdks">
+      <h2>SDK Examples</h2>
+      <p>No SDK is required — just HTTP. But here are ready-to-use snippets for common languages:</p>
+
+      <h3>Node.js</h3>
+      <div class="code-block"><code><span class="keyword">const</span> API_KEY = <span class="string">"dash_your_api_key"</span>;
+
+<span class="keyword">async function</span> <span class="method">pushMetric</span>(name, value, source) {
+  <span class="keyword">const</span> res = <span class="keyword">await</span> fetch(<span class="string">"https://dashello.co/api/ingest/metric"</span>, {
+    method: <span class="string">"POST"</span>,
+    headers: {
+      <span class="string">"Authorization"</span>: <span class="string">`Bearer ${API_KEY}`</span>,
+      <span class="string">"Content-Type"</span>: <span class="string">"application/json"</span>,
+    },
+    body: JSON.stringify({ metric: name, value, source }),
+  });
+  <span class="keyword">return</span> res.json();
+}
+
+<span class="comment">// Usage</span>
+<span class="keyword">await</span> <span class="method">pushMetric</span>(<span class="string">"revenue"</span>, 50000, <span class="string">"quickbooks"</span>);</code></div>
+
+      <h3>Python</h3>
+      <div class="code-block"><code><span class="keyword">import</span> requests
+
+API_KEY = <span class="string">"dash_your_api_key"</span>
+
+<span class="keyword">def</span> <span class="method">push_metric</span>(name, value, source=<span class="string">"api"</span>):
+    res = requests.post(
+        <span class="string">"https://dashello.co/api/ingest/metric"</span>,
+        json={<span class="string">"metric"</span>: name, <span class="string">"value"</span>: value, <span class="string">"source"</span>: source},
+        headers={<span class="string">"Authorization"</span>: <span class="string">f"Bearer {API_KEY}"</span>}
+    )
+    <span class="keyword">return</span> res.json()
+
+<span class="comment"># Usage</span>
+result = <span class="method">push_metric</span>(<span class="string">"leads"</span>, 47, <span class="string">"hubspot"</span>)
+<span class="method">print</span>(result)</code></div>
+
+      <h3>Google Apps Script</h3>
+      <div class="code-block"><code><span class="keyword">function</span> <span class="method">pushToDashello</span>(metric, value) {
+  <span class="keyword">const</span> API_KEY = <span class="string">"dash_your_api_key"</span>;
+  <span class="keyword">const</span> options = {
+    method: <span class="string">"post"</span>,
+    headers: { <span class="string">"Authorization"</span>: <span class="string">"Bearer " +</span> API_KEY },
+    contentType: <span class="string">"application/json"</span>,
+    payload: JSON.stringify({ metric, value, source: <span class="string">"google-sheets"</span> }),
+  };
+  UrlFetchApp.fetch(<span class="string">"https://dashello.co/api/ingest/metric"</span>, options);
+}
+
+<span class="comment">// Use in a sheet trigger</span>
+<span class="keyword">function</span> <span class="method">onEdit</span>(e) {
+  <span class="method">pushToDashello</span>(<span class="string">"Sheet Updated"</span>, 1);
+}</code></div>
+
+      <p>Need help integrating? We're happy to walk through it with you.</p>
+      <p><a href="mailto:hello@dashello.co" style="color:var(--blue);font-weight:600;text-decoration:underline">Contact — hello@dashello.co</a></p>
+    </div>
+
+  </main>
+
+</div>
+
+<script>
+document.querySelectorAll('.doc-sidebar a').forEach(function(link) {
+  link.addEventListener('click', function() {
+    document.querySelectorAll('.doc-sidebar a').forEach(function(l) { l.classList.remove('active'); });
+    this.classList.add('active');
+  });
+});
+</script>
+
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer style="margin-left:280px">
+  <div class="footer-inner">
+    <div>
+      <a href="../index.html" style="text-decoration:none">
+        <div class="footer-logo-wrap">
+          <img src="../images/2023/08/White-Logo-Full.png" alt="Dashello">
+          <div class="footer-tagline">You Can Track That.</div>
+        </div>
+      </a>
+      <div class="footer-copy" id="footer-copy"></div>
+    </div>
+    <div class="footer-links">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../jobs.html">Jobs</a></li>
+        <li><a href="https://app.dashello.co/dev">Documentation</a></li>
+        <li><a href="../privacy.html">Privacy & Security</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<!-- END: FOOTER -->
+
+
+<style>
+footer{background:#000;padding:48px 5%}
+.footer-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:start}
+.footer-logo-wrap img{height:32px;width:auto;display:block;margin-bottom:6px}
+.footer-tagline{color:#fff;font-size:10.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-top:3px;line-height:1;padding-left:1px;margin-bottom:8px}
+.footer-copy{font-size:12px;color:#555;margin-top:4px}
+.footer-links h4{font-size:14px;font-weight:700;color:#fff;margin-bottom:16px}
+.footer-links ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-links li a{font-size:13px;color:#aaa;text-decoration:none;transition:color 0.15s;font-weight:600}
+.footer-links li a:hover{color:#fff}
+@media(max-width:900px){footer{margin-left:0}}
+</style>
+
+
+<script>
+document.getElementById('footer-copy').textContent = '\u00A9' + new Date().getFullYear() + ' Trinitatis Licensing Inc. All Rights Reserved.';
+</script>
+
+</body>
+</html>

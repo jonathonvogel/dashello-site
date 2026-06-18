@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jobs — Dashello</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+<script>
+var DASHELLO_BTN_TEXT = "Join Our Team";
+var DASHELLO_BTN_LINK = "#openings";
+
+window.addEventListener('DOMContentLoaded', function() {
+  var btns = document.querySelectorAll('.btn-global');
+  btns.forEach(function(btn) {
+    btn.textContent = DASHELLO_BTN_TEXT;
+    btn.href = DASHELLO_BTN_LINK;
+  });
+});
+</script>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#0584EC;--blue-dark:#0468BE;--navy:#0F172A;--off:#F4F8FF}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#fff;color:#1a1a2e;overflow-x:hidden}
+
+/* ---- SHARED UTILITIES ---- */
+.section-tag{display:inline-block;background:#E6F1FB;color:#0468BE;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;border-radius:6px;margin-bottom:16px}
+.section-tag-white{display:inline-block;background:rgba(255,255,255,0.15);color:#fff;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;border-radius:6px;margin-bottom:16px}
+.section-title{font-size:clamp(26px,3.5vw,40px);font-weight:800;color:#1a1a2e;line-height:1.2;margin-bottom:12px;letter-spacing:-0.5px}
+.section-title-white{font-size:clamp(26px,3.5vw,40px);font-weight:800;color:#fff;line-height:1.2;margin-bottom:12px;letter-spacing:-0.5px}
+.section-sub{font-size:15px;color:#555;line-height:1.75;margin-bottom:32px;max-width:620px}
+
+/* ---- IMAGE ---- */
+.pg-img{width:100%;border-radius:20px;display:block;object-fit:cover;object-position:center top}
+
+/* ---- BUTTONS ---- */
+.btn-white{background:#fff;color:var(--blue);font-weight:700;font-size:14px;padding:13px 28px;border-radius:10px;text-decoration:none;display:inline-block;transition:transform 0.15s;margin-top:24px}
+.btn-white:hover{transform:translateY(-2px)}
+.btn-blue{background:var(--blue);color:#fff;font-weight:700;font-size:14px;padding:13px 28px;border-radius:10px;text-decoration:none;display:inline-block;transition:transform 0.15s;margin-top:24px}
+.btn-blue:hover{transform:translateY(-2px)}
+.btn-center{text-align:center;margin-top:8px}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+nav{background:transparent;padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;position:absolute;top:0;left:0;right:0;z-index:100}
+.nav-logo-wrap{display:flex;flex-direction:column;gap:2px}
+.nav-logo-wrap img{height:32px;width:auto}
+.nav-cta{background:#fff;color:var(--blue);font-weight:700;font-size:14px;padding:10px 22px;border-radius:8px;text-decoration:none;transition:transform 0.15s}
+.nav-cta:hover{transform:scale(1.03)}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{background:var(--blue);padding:120px 5% 80px;overflow:hidden;position:relative;text-align:center}
+.hero::before{content:'';position:absolute;top:-60px;right:-80px;width:500px;height:500px;background:rgba(255,255,255,0.04);border-radius:50%;pointer-events:none}
+.hero-inner{max-width:720px;margin:0 auto}
+.hero h1{font-size:clamp(36px,5vw,56px);font-weight:800;color:#fff;line-height:1.12;margin-bottom:20px;letter-spacing:-1px}
+.hero p{font-size:clamp(14px,1.8vw,17px);color:rgba(255,255,255,0.82);line-height:1.7;margin-bottom:8px;max-width:580px;margin-left:auto;margin-right:auto}
+
+/* ============================================================
+   VALUES
+   ============================================================ */
+.values{background:#fff;padding:80px 5%;position:relative;overflow:hidden}
+.values::before{content:'';position:absolute;top:-120px;right:-120px;width:480px;height:480px;background:radial-gradient(circle,rgba(5,132,236,0.07) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.values-inner{max-width:1080px;margin:0 auto;position:relative;z-index:1}
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:8px}
+.value-card{background:#fff;border-radius:16px;padding:32px 24px;border:1px solid rgba(5,132,236,0.1);text-align:center;transition:transform 0.2s}
+.value-card:hover{transform:translateY(-4px)}
+.vc-icon{width:56px;height:56px;background:#E6F1FB;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+.vc-icon i{font-size:26px;color:#0584EC}
+.value-card h3{font-size:18px;font-weight:800;color:#1a1a2e;margin-bottom:12px}
+.value-card p{font-size:14px;color:#555;line-height:1.7}
+
+/* ============================================================
+   HABITS
+   ============================================================ */
+.habits{background:var(--off);padding:80px 5%}
+.habits-inner{max-width:1080px;margin:0 auto}
+.habits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+.habit-card{background:#fff;border-radius:16px;padding:28px 24px;border:1px solid rgba(5,132,236,0.1)}
+.habit-num{font-size:11px;font-weight:800;color:#0584EC;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.habit-card h3{font-size:16px;font-weight:700;color:#1a1a2e;margin-bottom:8px}
+.habit-card p{font-size:13px;color:#666;line-height:1.65}
+
+/* ============================================================
+   MISSION
+   ============================================================ */
+.mission{background:var(--blue);padding:80px 5%}
+.mission-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.mission-img img{width:100%;border-radius:20px;display:block;filter:brightness(0.88) contrast(1.15)}
+.mission-text h2{font-size:clamp(24px,3.5vw,38px);font-weight:800;color:#fff;line-height:1.2;margin-bottom:16px;letter-spacing:-0.5px}
+.mission-text p{font-size:15px;color:rgba(255,255,255,0.82);line-height:1.75;margin-bottom:16px}
+
+/* ============================================================
+   OPENINGS
+   ============================================================ */
+.openings{background:#fff;padding:80px 5%}
+.openings-inner{max-width:1080px;margin:0 auto}
+.openings h2{font-size:clamp(26px,3.5vw,40px);font-weight:800;color:#1a1a2e;line-height:1.2;margin-bottom:12px;letter-spacing:-0.5px}
+.openings-header{font-size:15px;color:#555;line-height:1.75;margin-bottom:40px;max-width:640px}
+.openings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:40px}
+.opening-cat{background:var(--off);border-radius:16px;padding:28px 24px;border:1px solid rgba(5,132,236,0.1)}
+.opening-cat h3{font-size:16px;font-weight:800;color:var(--blue);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.opening-cat h3 i{font-size:18px}
+.opening-cat ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.opening-cat li{font-size:14px;color:#444;font-weight:600;display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(5,132,236,0.06)}
+.opening-cat li:last-child{border-bottom:none}
+.opening-cat li i{font-size:12px;color:var(--blue)}
+.oc-empty{font-size:14px;color:#aaa;font-weight:500;font-style:italic}
+.openings-cta{text-align:center;background:var(--off);border-radius:20px;padding:40px;border:1px solid rgba(5,132,236,0.1)}
+.openings-cta h3{font-size:clamp(18px,2.5vw,24px);font-weight:800;color:#1a1a2e;margin-bottom:8px}
+.openings-cta p{font-size:14px;color:#666;margin-bottom:8px}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{background:#000;padding:48px 5%}
+.footer-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:start}
+.footer-logo-wrap img{height:32px;width:auto;display:block;margin-bottom:6px}
+.footer-tagline{color:#fff;font-size:10.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-top:3px;line-height:1;padding-left:1px;margin-bottom:8px}
+.footer-copy{font-size:12px;color:#555;margin-top:4px}
+.footer-links h4{font-size:14px;font-weight:700;color:#fff;margin-bottom:16px}
+.footer-links ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-links li a{font-size:13px;color:#aaa;text-decoration:none;transition:color 0.15s;font-weight:600}
+.footer-links li a:hover{color:#fff}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:768px){
+  nav{padding:0 20px}
+  .mission-inner{grid-template-columns:1fr}
+  .hero{padding:100px 20px 60px}
+  .values,.habits,.mission,.openings{padding-left:20px;padding-right:20px}
+  .values-grid,.habits-grid,.openings-grid{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav>
+<a href="index.html" style="text-decoration:none">
+  <div class="nav-logo-wrap">
+    <img src="images/2023/08/White-Logo-Full.png" alt="Dashello" style="height:32px;width:auto;display:block">
+    <div style="color:#fff;font-size:10.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-top:3px;line-height:1;padding-left:1px">You Can Track That.</div>
+  </div>
+</a>
+  <a href="#openings" class="nav-cta btn-global">Join Our Team</a>
+</nav>
+<!-- END: NAV -->
+
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <div class="section-tag-white">Join Our Team</div>
+    <h1>Help us help 1 million business owners</h1>
+    <p>We're on a mission to help 1 million business owners make better and faster decisions that grow their companies. We need people who care, build, and lead with purpose.</p>
+    <a href="#openings" class="btn-white btn-global">Join Our Team</a>
+  </div>
+</section>
+<!-- END: HERO -->
+
+
+<!-- ============================================================
+     VALUES
+     ============================================================ -->
+<section class="values">
+  <div class="values-inner">
+    <div style="text-align:center">
+      <div class="section-tag">Our Values</div>
+      <h2 class="section-title">What we look for in every team member</h2>
+      <p class="section-sub" style="margin:0 auto 40px;text-align:center">Three values that define how we work, how we grow, and how we show up for each other.</p>
+    </div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="vc-icon"><i class="ti ti-bolt" aria-hidden="true"></i></div>
+        <h3>Smart Working</h3>
+        <p>Do you ruthlessly pursue the most effective ways to get things done, improve processes, save time, and save money? We're always looking for a better way.</p>
+      </div>
+      <div class="value-card">
+        <div class="vc-icon"><i class="ti ti-heart" aria-hidden="true"></i></div>
+        <h3>Unconditional Love</h3>
+        <p>Do you seek to serve and give of yourself for the good of others? Can you have tough conversations and be transparent and upfront with expectations?</p>
+      </div>
+      <div class="value-card">
+        <div class="vc-icon"><i class="ti ti-leaf" aria-hidden="true"></i></div>
+        <h3>Consciously Humble</h3>
+        <p>Do you trust your team enough to share problems and defeats? Do you invite constructive feedback to improve, and win and lose as one team?</p>
+      </div>
+    </div>
+    <div class="btn-center">
+      <a href="#openings" class="btn-blue btn-global">Join Our Team</a>
+    </div>
+  </div>
+</section>
+<!-- END: VALUES -->
+
+
+<!-- ============================================================
+     HABITS
+     ============================================================ -->
+<section class="habits">
+  <div class="habits-inner">
+    <div style="text-align:center">
+      <div class="section-tag">Habits We Strive To Keep</div>
+      <h2 class="section-title">How we stay aligned, focused, and growing</h2>
+      <p class="section-sub" style="margin:0 auto 0;text-align:center">Simple practices that keep our team moving in the same direction.</p>
+    </div>
+    <div class="habits-grid">
+      <div class="habit-card">
+        <div class="habit-num">Habit 01</div>
+        <h3>Weekly all-staff & priority check</h3>
+        <p>We over-communicate with each other and ensure the most important projects are always moving forward. We filter every decision by our mission so we get the right work done.</p>
+      </div>
+      <div class="habit-card">
+        <div class="habit-num">Habit 02</div>
+        <h3>We double-check our work</h3>
+        <p>We're all on a journey of continuous improvement. By reviewing our work, we invite healthy feedback so we can create better products and strengthen our skills.</p>
+      </div>
+      <div class="habit-card">
+        <div class="habit-num">Habit 03</div>
+        <h3>We spread the word</h3>
+        <p>Every business owner deserves to leave for home at the end of the day knowing their business is healthy and on track. We share that mission with the world.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END: HABITS -->
+
+
+<!-- ============================================================
+     MISSION
+     ============================================================ -->
+<section class="mission">
+  <div class="mission-inner">
+    <div class="mission-img">
+      <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80&fit=crop&crop=top" alt="Team working together" class="pg-img">
+    </div>
+    <div class="mission-text">
+      <div class="section-tag-white">Our Mission</div>
+      <h2>Every business owner deserves to know their business is healthy</h2>
+      <p>But in order to succeed, business owners need help. We help by building a business dashboard software that simplifies their data in a way that is quick to read and understand so they can make the best and fastest decision and succeed in growing their business.</p>
+      <p>If you are smart working, passionately enthusiastic, and consciously humble, join our mission.</p>
+      <a href="#openings" class="btn-white btn-global">Join Our Team</a>
+    </div>
+  </div>
+</section>
+<!-- END: MISSION -->
+
+
+<!-- ============================================================
+     OPENINGS
+     ============================================================ -->
+<section class="openings" id="openings">
+  <div class="openings-inner">
+    <div class="section-tag">Current Openings</div>
+    <h2>Come build with us</h2>
+    <p class="openings-header">We're looking for people who care deeply about helping business owners succeed. If any of these roles feel like you, we'd love to hear from you.</p>
+
+    <div class="openings-grid">
+      <div class="opening-cat">
+        <h3><i class="ti ti-speakerphone" aria-hidden="true"></i> Marketing</h3>
+        <ul>
+          <li><i class="ti ti-caret-right" aria-hidden="true"></i> Head of Marketing and Brand</li>
+          <li><i class="ti ti-caret-right" aria-hidden="true"></i> Video Editor – Long and Short Form</li>
+          <li><i class="ti ti-caret-right" aria-hidden="true"></i> Script Writer</li>
+          <li><i class="ti ti-caret-right" aria-hidden="true"></i> Graphic Designer – Video and Stationery</li>
+          <li><i class="ti ti-caret-right" aria-hidden="true"></i> SEO Post Writer</li>
+          <li><i class="ti ti-caret-right" aria-hidden="true"></i> Social Media Post Manager</li>
+        </ul>
+      </div>
+      <div class="opening-cat">
+        <h3><i class="ti ti-code" aria-hidden="true"></i> Development</h3>
+        <ul>
+          <li><i class="ti ti-caret-right" aria-hidden="true"></i> Security and Data Management</li>
+          <li><i class="ti ti-caret-right" aria-hidden="true"></i> Full Stack Developer</li>
+        </ul>
+      </div>
+      <div class="opening-cat">
+        <h3><i class="ti ti-users" aria-hidden="true"></i> HR</h3>
+        <ul>
+          <li><i class="ti ti-caret-right" aria-hidden="true"></i> Head of HR</li>
+          <li><i class="ti ti-caret-right" aria-hidden="true"></i> Culture Champion</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="openings-cta">
+      <h3>Don't see the right fit?</h3>
+      <p>We're always looking for great people. Send us your resume and we'll keep you in mind.</p>
+      <a href="contact.html" class="btn-blue" style="margin-top:16px;display:inline-block;font-weight:700;font-size:14px;padding:13px 28px;border-radius:10px;text-decoration:none;background:var(--blue);color:#fff;transition:transform 0.15s">Submit Your Resume</a>
+    </div>
+  </div>
+</section>
+<!-- END: OPENINGS -->
+
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="index.html" style="text-decoration:none">
+        <div class="footer-logo-wrap">
+          <img src="images/2023/08/White-Logo-Full.png" alt="Dashello">
+          <div class="footer-tagline">You Can Track That.</div>
+        </div>
+      </a>
+      <div class="footer-copy" id="footer-copy"></div>
+    </div>
+    <div class="footer-links">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="jobs.html">Jobs</a></li>
+        <li><a href="https://app.dashello.co/dev">Documentation</a></li>
+        <li><a href="privacy.html">Privacy & Security</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<!-- END: FOOTER -->
+
+
+<script>
+document.getElementById('footer-copy').textContent = '\u00A9' + new Date().getFullYear() + ' Trinitatis Licensing Inc. All Rights Reserved.';
+</script>
+
+</body>
+</html>

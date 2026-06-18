@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy & Security — Dashello</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+<script>
+var DASHELLO_BTN_TEXT = "Try For Free";
+var DASHELLO_BTN_LINK = "https://app.dashello.co";
+
+window.addEventListener('DOMContentLoaded', function() {
+  var btns = document.querySelectorAll('.btn-global');
+  btns.forEach(function(btn) {
+    btn.textContent = DASHELLO_BTN_TEXT;
+    btn.href = DASHELLO_BTN_LINK;
+  });
+});
+</script>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#0584EC;--blue-dark:#0468BE;--navy:#0F172A;--off:#F4F8FF}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#fff;color:#1a1a2e;overflow-x:hidden}
+
+/* ---- SHARED UTILITIES ---- */
+.section-tag{display:inline-block;background:#E6F1FB;color:#0468BE;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;border-radius:6px;margin-bottom:16px}
+.section-tag-white{display:inline-block;background:rgba(255,255,255,0.15);color:#fff;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;border-radius:6px;margin-bottom:16px}
+.section-title{font-size:clamp(26px,3.5vw,40px);font-weight:800;color:#1a1a2e;line-height:1.2;margin-bottom:12px;letter-spacing:-0.5px}
+.section-title-white{font-size:clamp(26px,3.5vw,40px);font-weight:800;color:#fff;line-height:1.2;margin-bottom:12px;letter-spacing:-0.5px}
+.section-sub{font-size:15px;color:#555;line-height:1.75;margin-bottom:32px;max-width:620px}
+.section-sub-white{font-size:15px;color:rgba(255,255,255,0.8);line-height:1.75;margin-bottom:32px;max-width:600px}
+
+/* ---- BUTTONS ---- */
+.btn-white{background:#fff;color:var(--blue);font-weight:700;font-size:14px;padding:13px 28px;border-radius:10px;text-decoration:none;display:inline-block;transition:transform 0.15s;margin-top:24px}
+.btn-white:hover{transform:translateY(-2px)}
+.btn-blue{background:var(--blue);color:#fff;font-weight:700;font-size:14px;padding:13px 28px;border-radius:10px;text-decoration:none;display:inline-block;transition:transform 0.15s;margin-top:24px}
+.btn-blue:hover{transform:translateY(-2px)}
+.btn-center{text-align:center;margin-top:8px}
+
+/* ---- BADGE ---- */
+.badge{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:999px;padding:5px 12px;font-size:11px;color:#fff;font-weight:600}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+nav{background:transparent;padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;position:absolute;top:0;left:0;right:0;z-index:100}
+.nav-logo-wrap{display:flex;flex-direction:column;gap:2px}
+.nav-logo-wrap img{height:32px;width:auto}
+.nav-cta{background:#fff;color:var(--blue);font-weight:700;font-size:14px;padding:10px 22px;border-radius:8px;text-decoration:none;transition:transform 0.15s}
+.nav-cta:hover{transform:scale(1.03)}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{background:var(--blue);padding:120px 5% 80px;overflow:hidden;position:relative}
+.hero::before{content:'';position:absolute;top:-60px;right:-80px;width:500px;height:500px;background:rgba(255,255,255,0.04);border-radius:50%;pointer-events:none}
+.hero-inner{max-width:820px;margin:0 auto;text-align:center}
+.hero h1{font-size:clamp(36px,5vw,56px);font-weight:800;color:#fff;line-height:1.12;margin-bottom:16px;letter-spacing:-1px}
+.hero p{font-size:15px;color:rgba(255,255,255,0.78);line-height:1.7;margin-bottom:8px;max-width:600px;margin-left:auto;margin-right:auto}
+.hero-badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:20px}
+.hero-meta{font-size:13px;color:rgba(255,255,255,0.55);margin-top:28px}
+
+/* ============================================================
+   TOC
+   ============================================================ */
+.toc-wrap{background:var(--off);padding:40px 5%}
+.toc-inner{max-width:820px;margin:0 auto}
+.toc-inner h2{font-size:16px;font-weight:700;margin-bottom:16px;color:#1a1a2e}
+.toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.toc-grid a{font-size:13px;color:var(--blue);text-decoration:none;font-weight:600;padding:4px 0;transition:color 0.15s}
+.toc-grid a:hover{color:var(--blue-dark);text-decoration:underline}
+
+/* ============================================================
+   CONTENT
+   ============================================================ */
+.content{background:#fff;padding:60px 5%}
+.content-inner{max-width:820px;margin:0 auto}
+.policy-section{margin-bottom:48px;scroll-margin-top:90px}
+.policy-section h2{font-size:clamp(20px,2.5vw,28px);font-weight:800;color:#1a1a2e;margin-bottom:16px;letter-spacing:-0.3px;padding-bottom:8px;border-bottom:2px solid var(--off)}
+.policy-section h3{font-size:16px;font-weight:700;color:#1a1a2e;margin-bottom:10px;margin-top:24px}
+.policy-section p{font-size:14px;color:#444;line-height:1.8;margin-bottom:14px}
+.policy-section p em{color:#888;font-style:italic;display:block;font-size:14px;padding:12px 16px;background:var(--off);border-radius:8px;margin:16px 0}
+.policy-section ul{list-style:none;display:flex;flex-direction:column;gap:6px;margin:12px 0 16px;padding-left:0}
+.policy-section ul li{font-size:14px;color:#444;line-height:1.6;padding-left:20px;position:relative}
+.policy-section ul li::before{content:'\00B7';position:absolute;left:4px;color:var(--blue);font-weight:800}
+.policy-section .highlight-box{background:var(--off);border-left:3px solid var(--blue);border-radius:8px;padding:16px 20px;margin:16px 0}
+.policy-section .highlight-box p{margin-bottom:0;font-size:14px;color:#1a1a2e;font-weight:600}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{background:#000;padding:48px 5%}
+.footer-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:start}
+.footer-logo-wrap img{height:32px;width:auto;display:block;margin-bottom:6px}
+.footer-tagline{color:#fff;font-size:10.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-top:3px;line-height:1;padding-left:1px;margin-bottom:8px}
+.footer-copy{font-size:12px;color:#555;margin-top:4px}
+.footer-links h4{font-size:14px;font-weight:700;color:#fff;margin-bottom:16px}
+.footer-links ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-links li a{font-size:13px;color:#aaa;text-decoration:none;transition:color 0.15s;font-weight:600}
+.footer-links li a:hover{color:#fff}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:768px){
+  nav{padding:0 20px}
+  .hero{padding:100px 20px 60px}
+  .toc-wrap,.content{padding-left:20px;padding-right:20px}
+  .toc-grid{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav>
+<a href="index.html" style="text-decoration:none">
+  <div class="nav-logo-wrap">
+    <img src="images/2023/08/White-Logo-Full.png" alt="Dashello" style="height:32px;width:auto;display:block">
+    <div style="color:#fff;font-size:10.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-top:3px;line-height:1;padding-left:1px">You Can Track That.</div>
+  </div>
+</a>
+  <a href="#" class="nav-cta btn-global">Try For Free</a>
+</nav>
+<!-- END: NAV -->
+
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="section-tag-white">Privacy & Security</div>
+    <h1>Your data is safe with us</h1>
+    <p>How Dashello keeps your business data safe, private, and under your control. Operated by Trinitatis Licensing Inc. (doing business as Dashello)</p>
+    <div class="hero-badges">
+      <div class="badge"><i class="ti ti-lock" aria-hidden="true"></i> Encrypted in transit</div>
+      <div class="badge"><i class="ti ti-database" aria-hidden="true"></i> Encrypted at rest</div>
+      <div class="badge"><i class="ti ti-eye-off" aria-hidden="true"></i> AI optional</div>
+      <div class="badge"><i class="ti ti-shield" aria-hidden="true"></i> Private by default</div>
+    </div>
+    <div class="hero-meta">Last updated: January 01, 2026</div>
+  </div>
+</section>
+<!-- END: HERO -->
+
+
+<!-- ============================================================
+     TOC
+     ============================================================ -->
+<section class="toc-wrap">
+  <div class="toc-inner">
+    <h2>Table of Contents</h2>
+    <div class="toc-grid">
+      <a href="#section-1">1. How your data is protected</a>
+      <a href="#section-2">2. Your login & account security</a>
+      <a href="#section-3">3. Third-party app integrations</a>
+      <a href="#section-4">4. AI features & your privacy</a>
+      <a href="#section-5">5. Sharing & public features</a>
+      <a href="#section-6">6. What information we collect</a>
+      <a href="#section-7">7. How we use your information</a>
+      <a href="#section-8">8. Who we share your information with</a>
+      <a href="#section-9">9. Cookies & tracking technologies</a>
+      <a href="#section-10">10. How long we keep your data</a>
+      <a href="#section-11">11. Children's privacy</a>
+      <a href="#section-12">12. Your privacy rights</a>
+      <a href="#section-13">13. US state privacy rights</a>
+      <a href="#section-14">14. International transfers</a>
+      <a href="#section-15">15. Our infrastructure partners</a>
+      <a href="#section-16">16. Updates to this policy</a>
+      <a href="#section-contact">17. Contact us</a>
+    </div>
+  </div>
+</section>
+<!-- END: TOC -->
+
+
+<!-- ============================================================
+     CONTENT
+     ============================================================ -->
+<section class="content">
+  <div class="content-inner">
+
+    <div class="policy-section" id="section-1">
+      <h2>1. How your data is protected</h2>
+      <p><em>In plain English: Your data is scrambled while traveling to our servers and while sitting in our database — so even if someone tried to intercept it, they'd see nothing useful.</em></p>
+      <ul>
+        <li><strong>Encrypted in transit:</strong> Every connection uses HTTPS/TLS — the same standard used by banks. Your data is scrambled the moment it leaves your device.</li>
+        <li><strong>Encrypted at rest:</strong> Your data is also encrypted while stored in our database. Physical access to our servers wouldn't expose readable data.</li>
+        <li><strong>Row-level security:</strong> Your dashboard data is locked to your account only. No other user — even on the same plan — can see your data.</li>
+      </ul>
+    </div>
+
+    <div class="policy-section" id="section-2">
+      <h2>2. Your login & account security</h2>
+      <p><em>In plain English: We never store your actual password. You log in securely and get a private session that only you control.</em></p>
+      <ul>
+        <li><strong>Passwords are never stored in plain text.</strong> We use industry-standard hashing — your password is converted into a one-way code we can verify but never read.</li>
+        <li><strong>Secure sessions:</strong> When you log in, you receive an encrypted session token with an expiry. When you log out, it's invalidated immediately.</li>
+        <li><strong>Social login:</strong> If you register via Google, Facebook, or other social platforms, we only receive the profile info you authorize — name, email, and profile picture. We don't control how those platforms handle your data.</li>
+      </ul>
+    </div>
+
+    <div class="policy-section" id="section-3">
+      <h2>3. Third-party app integrations</h2>
+      <p><em>In plain English: When you connect an app or bank account, Dashello never sees or stores your password for that service. You authorize access through a secure handshake, and you can revoke it anytime.</em></p>
+      <ul>
+        <li><strong>OAuth token-based access:</strong> You grant access through the third-party app directly — we receive a limited-use token, not your credentials.</li>
+        <li><strong>Tokens stored in a secure vault:</strong> Access tokens are stored in an encrypted secrets vault, never in application code or exposed to the frontend.</li>
+        <li><strong>Revoke anytime:</strong> You can disconnect any integration from your settings at any time. Access is immediately removed.</li>
+        <li><strong>Minimal data access:</strong> We only request the specific data needed to populate your dashboard — nothing more.</li>
+        <li><strong>Google API:</strong> Our use of information received from Google APIs adheres to the Google API Services User Data Policy, including the Limited Use requirements.</li>
+      </ul>
+    </div>
+
+    <div class="policy-section" id="section-4">
+      <h2>4. AI features & your privacy</h2>
+      <p><em>In plain English: AI is completely optional. If you don't turn it on, zero data ever goes to any AI system. If you do, you control exactly what it can see.</em></p>
+      <ul>
+        <li><strong>Off by default:</strong> No AI feature is active unless you explicitly enable it.</li>
+        <li><strong>Per-metric control:</strong> You choose which individual metric blocks the AI can access.</li>
+        <li><strong>Minimal data sent:</strong> When AI is enabled, we only send the specific numbers needed — never raw credentials or personal identifiers.</li>
+        <li><strong>AI providers:</strong> We use third-party AI services including Google Cloud AI, Anthropic, DALL-E, and Perplexity. Your input and output may be processed by these providers under their respective privacy policies.</li>
+        <li><strong>Disconnect anytime:</strong> Turning off AI is instant. No further data is sent to any AI provider.</li>
+      </ul>
+    </div>
+
+    <div class="policy-section" id="section-5">
+      <h2>5. Sharing & public features</h2>
+      <p><em>In plain English: Nothing in Dashello is public unless you make it public yourself. Sharing is always your decision.</em></p>
+      <ul>
+        <li><strong>Private by default:</strong> Every dashboard, metric, and goal is private until you explicitly choose to share it.</li>
+        <li><strong>Team sharing:</strong> When you invite team members, you control what they can see and edit. Access is role-based.</li>
+        <li><strong>Public links:</strong> If you create a public share link, you will always be clearly notified. You can revoke public access at any time from settings.</li>
+      </ul>
+    </div>
+
+    <div class="policy-section" id="section-6">
+      <h2>6. What information we collect</h2>
+      <p><em>In plain English: We collect what you give us when you sign up, plus some automatic technical information like your IP address and device type so the app works properly.</em></p>
+      <ul>
+        <li><strong>Account information you provide:</strong> Name, email address, phone number, username, password, job title, billing address, and contact preferences.</li>
+        <li><strong>Payment data:</strong> Payment processing is handled entirely by Stripe. We never see or store your full card number.</li>
+        <li><strong>Device & usage data:</strong> IP address, browser type, device model, operating system, pages visited, and app features used — collected automatically to keep the app running and secure.</li>
+        <li><strong>Location data:</strong> Approximate location based on IP address. You can disable precise location in your device settings.</li>
+        <li><strong>Third-party app data:</strong> Financial data, health data, and other metrics you choose to connect through integrations — only with your explicit authorization.</li>
+      </ul>
+    </div>
+
+    <div class="policy-section" id="section-7">
+      <h2>7. How we use your information</h2>
+      <p><em>In plain English: We use your data to run the app, support you, improve the product, and keep things secure. We don't sell it.</em></p>
+      <ul>
+        <li>To create and manage your account</li>
+        <li>To provide and improve the Dashello service</li>
+        <li>To respond to your support requests</li>
+        <li>To send service-related notifications and updates</li>
+        <li>To process payments and manage subscriptions</li>
+        <li>To prevent fraud and protect security</li>
+        <li>To understand how the app is used so we can improve it</li>
+      </ul>
+      <div class="highlight-box">
+        <p>We have not sold or shared personal information to third parties for commercial purposes in the past 12 months, and we will not do so in the future.</p>
+      </div>
+    </div>
+
+    <div class="policy-section" id="section-8">
+      <h2>8. Who we share your information with</h2>
+      <p><em>In plain English: We only share your data with the services needed to run Dashello. We never sell it.</em></p>
+      <ul>
+        <li><strong>Infrastructure providers:</strong> Supabase (database) and Vercel (hosting) — both SOC 2 certified.</li>
+        <li><strong>Payment processing:</strong> Stripe handles all payments under their own privacy policy.</li>
+        <li><strong>AI providers:</strong> Only when you enable AI features — Google Cloud AI, Anthropic, DALL-E, or Perplexity.</li>
+        <li><strong>Analytics:</strong> Google Analytics may collect usage data to help us improve the product.</li>
+        <li><strong>Business transfers:</strong> If Dashello is acquired or merged, your data may transfer to the new entity under the same privacy commitments.</li>
+      </ul>
+    </div>
+
+    <div class="policy-section" id="section-9">
+      <h2>9. Cookies & tracking technologies</h2>
+      <p><em>In plain English: We use cookies to keep you logged in and make the app work. We also use analytics cookies to understand how people use Dashello so we can improve it.</em></p>
+      <ul>
+        <li><strong>Essential cookies:</strong> Required for login sessions, security, and basic app functionality. Cannot be disabled.</li>
+        <li><strong>Analytics cookies:</strong> Google Analytics tracks usage patterns to help us improve the product. You can opt out via your browser settings or Google's opt-out tool.</li>
+        <li><strong>Managing cookies:</strong> Most browsers let you block or delete cookies. Blocking essential cookies may affect app functionality.</li>
+      </ul>
+    </div>
+
+    <div class="policy-section" id="section-10">
+      <h2>10. How long we keep your data</h2>
+      <p><em>In plain English: We keep your data as long as you have an account. When you delete your account, we delete your data — except where the law requires us to keep certain records.</em></p>
+      <ul>
+        <li>Your data is retained for as long as your account is active.</li>
+        <li>When you close your account, we will delete or anonymize your personal information within a reasonable period.</li>
+        <li>Some information may be retained in backup archives or to comply with legal obligations, fraud prevention, or dispute resolution.</li>
+      </ul>
+    </div>
+
+    <div class="policy-section" id="section-11">
+      <h2>11. Children's privacy</h2>
+      <p><em>In plain English: Dashello is for adults and business professionals. We do not knowingly collect data from anyone under 18.</em></p>
+      <ul>
+        <li>We do not knowingly collect data from or market to children under 18 years of age.</li>
+        <li>If you believe we have collected data from a minor, please contact us and we will delete it promptly.</li>
+      </ul>
+    </div>
+
+    <div class="policy-section" id="section-12">
+      <h2>12. Your privacy rights</h2>
+      <p><em>In plain English: Depending on where you live, you have the right to see, correct, download, or delete your data. You can always contact us to exercise these rights.</em></p>
+      <ul>
+        <li><strong>Right to know</strong> — see what data we hold about you</li>
+        <li><strong>Right to correct</strong> — fix inaccurate data</li>
+        <li><strong>Right to delete</strong> — request removal of your data</li>
+        <li><strong>Right to portability</strong> — receive a copy of your data</li>
+        <li><strong>Right to opt out</strong> — of targeted advertising or profiling</li>
+        <li><strong>Withdraw consent</strong> — unsubscribe or revoke AI access anytime</li>
+      </ul>
+      <p>To exercise any right, email us or submit a data subject access request.</p>
+      <p>No mobile information will be shared with third parties or affiliates for marketing or promotional purposes.</p>
+    </div>
+
+    <div class="policy-section" id="section-13">
+      <h2>13. US state privacy rights</h2>
+      <p><em>In plain English: If you live in California, Texas, Colorado, Virginia, or many other US states, you have additional rights under state law — including the right to know, correct, delete, and opt out of data sales.</em></p>
+      <p>Residents of California, Colorado, Connecticut, Delaware, Florida, Indiana, Iowa, Kentucky, Maryland, Minnesota, Montana, Nebraska, New Hampshire, New Jersey, Oregon, Rhode Island, Tennessee, Texas, Utah, and Virginia may have specific rights under their state's privacy laws. These include the right to access, correct, delete, and obtain a copy of your personal data, and to opt out of its use for targeted advertising.</p>
+      <p>To exercise these rights, email us or submit a data subject access request. If your request is denied, you may appeal by emailing us. If the appeal is denied, you may contact your state attorney general.</p>
+    </div>
+
+    <div class="policy-section" id="section-14">
+      <h2>14. International data transfers</h2>
+      <p><em>In plain English: Our servers are in the United States. If you're in the EU, UK, or elsewhere, your data may be transferred here. We follow applicable laws to protect it regardless of location.</em></p>
+      <ul>
+        <li>Our servers are located in the United States.</li>
+        <li>If you are in the EEA, UK, Switzerland, Australia, or New Zealand, we take all necessary measures to protect your information in accordance with applicable data protection law.</li>
+      </ul>
+    </div>
+
+    <div class="policy-section" id="section-15">
+      <h2>15. Our infrastructure partners</h2>
+      <p><em>In plain English: We build on top of trusted, enterprise-grade platforms so you get bank-level infrastructure.</em></p>
+      <ul>
+        <li><strong>Supabase</strong> — database platform. SOC 2 Type II certified, with built-in encryption and row-level security.</li>
+        <li><strong>Vercel</strong> — hosting platform. SOC 2 certified, with automatic HTTPS and global edge security.</li>
+        <li><strong>Stripe</strong> — payment processing. PCI-DSS compliant.</li>
+      </ul>
+    </div>
+
+    <div class="policy-section" id="section-16">
+      <h2>16. Updates to this policy</h2>
+      <p>We may update this Privacy Notice from time to time. The updated version will be indicated by a revised date at the top of this page. If we make material changes, we will notify you by email or by posting a prominent notice in the app. We encourage you to review this policy periodically.</p>
+      <p>Questions about your privacy or security that aren't answered here? We're happy to talk before you commit to anything.</p>
+    </div>
+
+    <div class="policy-section" id="section-contact">
+      <h2>17. Contact us</h2>
+      <p>Trinitatis Licensing Inc. (doing business as Dashello)</p>
+      <p>Email: <a href="mailto:contact@dashello.co" style="color:var(--blue);font-weight:600;text-decoration:underline">contact@dashello.co</a></p>
+    </div>
+  </div>
+</section>
+<!-- END: CONTENT -->
+
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="index.html" style="text-decoration:none">
+        <div class="footer-logo-wrap">
+          <img src="images/2023/08/White-Logo-Full.png" alt="Dashello">
+          <div class="footer-tagline">You Can Track That.</div>
+        </div>
+      </a>
+      <div class="footer-copy" id="footer-copy"></div>
+    </div>
+    <div class="footer-links">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="jobs.html">Jobs</a></li>
+        <li><a href="https://app.dashello.co/dev">Documentation</a></li>
+        <li><a href="privacy.html">Privacy & Security</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<!-- END: FOOTER -->
+
+
+<script>
+document.getElementById('footer-copy').textContent = '\u00A9' + new Date().getFullYear() + ' Trinitatis Licensing Inc. All Rights Reserved.';
+</script>
+
+</body>
+</html>
