@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashello Blog — Integration Guides, Tips & Product Updates</title>
+<meta name="description" content="Learn how to connect Dashello with your favorite tools. Step-by-step integration guides, product updates, and tips for making better business decisions with your data.">
+<link rel="canonical" href="https://dashello.co/blog/">
+<meta property="og:title" content="Dashello Blog — Integration Guides, Tips & Product Updates">
+<meta property="og:description" content="Learn how to connect Dashello with your favorite tools. Step-by-step integration guides, product updates, and tips for making better business decisions with your data.">
+<meta property="og:url" content="https://dashello.co/blog/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://dashello.co/images/2023/08/White-Logo-Full.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Dashello Blog",
+  "description": "Integration guides, product updates, and tips for making better business decisions with your data.",
+  "url": "https://dashello.co/blog/",
+  "about": {
+    "@type": "Thing",
+    "name": "Dashello integrations and business dashboard tips"
+  }
+}
+</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#0584EC;--blue-dark:#0468BE;--navy:#0F172A;--off:#F4F8FF}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#fff;color:#1a1a2e;overflow-x:hidden}
+.section-tag{display:inline-block;background:#E6F1FB;color:#0468BE;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;border-radius:6px;margin-bottom:16px}
+.section-title{font-size:clamp(26px,3.5vw,40px);font-weight:800;color:#1a1a2e;margin-bottom:8px;letter-spacing:-0.5px}
+.section-sub{font-size:15px;color:#555;margin-bottom:32px}
+
+/* NAV */
+nav{background:var(--navy);padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;position:fixed;top:0;left:0;right:0;z-index:100}
+.nav-links{display:flex;align-items:center;gap:24px}
+.nav-links a{font-size:13px;color:rgba(255,255,255,0.75);text-decoration:none;font-weight:600;transition:color 0.15s}
+.nav-links a:hover{color:#fff}
+.nav-links a.active{color:#fff}
+.nav-logo-wrap{display:flex;flex-direction:column;gap:2px}
+.nav-logo-wrap img{height:32px;width:auto}
+.nav-tagline{font-size:10px;color:rgba(255,255,255,0.7);font-weight:600;letter-spacing:0.5px;padding-left:2px}
+.nav-cta{background:#fff;color:var(--blue);font-weight:700;font-size:14px;padding:10px 22px;border-radius:8px;text-decoration:none;transition:transform 0.15s}
+.nav-cta:hover{transform:scale(1.03)}
+
+/* HERO */
+.blog-hero{background:var(--navy);padding:120px 5% 80px;text-align:center}
+.blog-hero h1{font-size:clamp(32px,5vw,52px);font-weight:800;color:#fff;line-height:1.15;margin-bottom:12px;letter-spacing:-1px}
+.blog-hero p{font-size:16px;color:rgba(255,255,255,0.65);max-width:520px;margin:0 auto 32px;line-height:1.6}
+
+/* SEARCH */
+.search-wrap{max-width:480px;margin:0 auto;position:relative}
+.search-wrap i{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:18px;color:#9CA3AF}
+.search-wrap input{width:100%;padding:14px 16px 14px 46px;border-radius:12px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.08);color:#fff;font-size:15px;font-family:inherit;outline:none;transition:border 0.2s}
+.search-wrap input::placeholder{color:rgba(255,255,255,0.35)}
+.search-wrap input:focus{border-color:var(--blue);background:rgba(255,255,255,0.12)}
+
+/* POSTS */
+.posts{padding:60px 5% 80px;max-width:1080px;margin:0 auto}
+.posts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px}
+.post-card{border-radius:16px;border:1px solid #e5e7eb;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;background:#fff;text-decoration:none;color:inherit;display:flex;flex-direction:column}
+.post-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(5,132,236,0.1)}
+.post-card-img{width:100%;height:180px;object-fit:cover;display:block;background:var(--off)}
+.post-card-body{padding:20px 24px 24px;flex:1;display:flex;flex-direction:column}
+.post-tags{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.post-tag{font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:#E6F1FB;color:#0468BE}
+.post-date{font-size:12px;color:#9CA3AF;font-weight:500;margin-bottom:6px}
+.post-card h3{font-size:18px;font-weight:800;color:#1a1a2e;line-height:1.3;margin-bottom:8px}
+.post-excerpt{font-size:13px;color:#6B7280;line-height:1.6;margin-bottom:12px;flex:1}
+.post-read{font-size:13px;font-weight:700;color:var(--blue);display:flex;align-items:center;gap:4px}
+
+/* NO RESULTS */
+.no-results{text-align:center;padding:60px 20px;display:none}
+.no-results i{font-size:40px;color:#9CA3AF;margin-bottom:16px;display:block}
+.no-results p{font-size:16px;color:#6B7280}
+
+/* FOOTER */
+footer{background:#000;padding:48px 5%}
+.footer-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr auto auto;gap:40px;align-items:start}
+.footer-logo-wrap img{height:32px;width:auto;display:block;margin-bottom:6px}
+.footer-tagline{color:#fff;font-size:10.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-top:3px;line-height:1;padding-left:1px;margin-bottom:8px}
+.footer-copy{font-size:12px;color:#555;margin-top:4px}
+.footer-links h4{font-size:14px;font-weight:700;color:#fff;margin-bottom:16px}
+.footer-links ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-links li a{font-size:13px;color:#aaa;text-decoration:none;transition:color 0.15s;font-weight:600}
+.footer-links li a:hover{color:#fff}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{padding:0 20px}
+  .nav-links{gap:14px}
+  .blog-hero{padding:100px 20px 60px}
+  .posts{padding:40px 20px 60px}
+  .posts-grid{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr;gap:28px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+<div style="display:flex;align-items:center;gap:32px">
+  <a href="../index.html" style="text-decoration:none">
+    <div class="nav-logo-wrap">
+      <img src="../images/2023/08/White-Logo-Full.png" alt="Dashello" style="height:32px;width:auto;display:block">
+      <div class="nav-tagline">You Can Track That.</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="../index.html">Home</a>
+    <a href="../about.html">About</a>
+    <a href="../index.html#features">Features</a>
+    <a href="index.html" class="active">Blog</a>
+  </div>
+</div>
+  <a href="https://app.dashello.co" class="nav-cta">Try For Free</a>
+</nav>
+<!-- END NAV -->
+
+<!-- HERO -->
+<section class="blog-hero">
+  <div class="section-tag" style="background:rgba(255,255,255,0.12);color:#fff;border:1px solid rgba(255,255,255,0.2)">Dashello Blog</div>
+  <h1>Integration Guides & Updates</h1>
+  <p>Step-by-step guides to connect your favorite tools with Dashello. Make your data work for you.</p>
+  <div class="search-wrap">
+    <i class="ti ti-search"></i>
+    <input type="text" id="blogSearch" placeholder="Search posts..." oninput="filterPosts()">
+  </div>
+</section>
+<!-- END HERO -->
+
+<!-- POSTS -->
+<section class="posts">
+  <div class="posts-grid" id="postsGrid">
+
+    <!-- POST: Zapier -->
+    <a href="zapier-integration/" class="post-card">
+      <img class="post-card-img" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80&fit=crop" alt="Zapier automation" loading="lazy">
+      <div class="post-card-body">
+        <div class="post-tags"><span class="post-tag">Integration</span><span class="post-tag" style="background:#FEF3C7;color:#92400E">Zapier</span></div>
+        <div class="post-date">June 19, 2026 · 8 min read</div>
+        <h3>How to Connect Any App to Dashello Using Zapier</h3>
+        <div class="post-excerpt">Connect Dashello with 7,000+ apps via Zapier. Push metrics from Gmail, Typeform, Google Sheets, and more into your dashboard automatically.</div>
+        <div class="post-read">Read More <i class="ti ti-arrow-right" style="font-size:14px"></i></div>
+      </div>
+    </a>
+
+    <!-- placeholder for future posts -->
+  </div>
+
+  <div class="no-results" id="noResults">
+    <i class="ti ti-search-off"></i>
+    <p>No posts match your search. Try another term.</p>
+  </div>
+</section>
+<!-- END POSTS -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="../index.html" style="text-decoration:none">
+        <div class="footer-logo-wrap">
+          <img src="../images/2023/08/White-Logo-Full.png" alt="Dashello">
+          <div class="footer-tagline">You Can Track That.</div>
+        </div>
+      </a>
+      <div class="footer-copy" id="footer-copy"></div>
+    </div>
+    <div class="footer-links">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="index.html">Blog</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../jobs.html">Jobs</a></li>
+        <li><a href="https://app.dashello.co/dev">Documentation</a></li>
+        <li><a href="../privacy.html">Privacy & Security</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Integrations</h4>
+      <ul>
+        <li><a href="zapier-integration/">Zapier</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<!-- END FOOTER -->
+
+<script>
+document.getElementById('footer-copy').textContent = '\u00A9' + new Date().getFullYear() + ' Trinitatis Licensing Inc. All Rights Reserved.';
+
+function filterPosts() {
+  var q = document.getElementById('blogSearch').value.toLowerCase();
+  var cards = document.querySelectorAll('.post-card');
+  var found = false;
+  cards.forEach(function(c) {
+    var match = c.textContent.toLowerCase().includes(q);
+    c.style.display = match ? 'flex' : 'none';
+    if (match) found = true;
+  });
+  document.getElementById('noResults').style.display = found ? 'none' : 'block';
+}
+</script>
+
+</body>
+</html>
