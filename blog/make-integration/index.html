@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Connect Make to Dashello — Dashello Blog</title>
+<meta name="description" content="Connect Make (formerly Integromat) to Dashello and build visual automations to push metrics from thousands of apps into your dashboard. No-code step-by-step guide.">
+<link rel="canonical" href="https://dashello.co/blog/make-integration/">
+<meta property="og:title" content="How to Connect Make to Dashello">
+<meta property="og:description" content="Connect Make (formerly Integromat) to Dashello and build visual automations to push metrics from thousands of apps into your dashboard.">
+<meta property="og:url" content="https://dashello.co/blog/make-integration/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&q=80&fit=crop">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "How to Connect Make to Dashello",
+  "description": "Connect Make (formerly Integromat) to Dashello and build visual automations to push metrics from thousands of apps into your dashboard.",
+  "image": ["https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&q=80&fit=crop"],
+  "datePublished": "2026-06-30T10:00:00-05:00",
+  "dateModified": "2026-06-30T10:00:00-05:00",
+  "author": { "@type": "Organization", "name": "Dashello", "url": "https://dashello.co" },
+  "publisher": { "@type": "Organization", "name": "Dashello", "url": "https://dashello.co" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Connect Make to Dashello",
+  "description": "Use Make's HTTP module to send data from any connected app into your Dashello dashboard.",
+  "estimatedTime": "PT8M",
+  "step": [
+    { "@type": "HowToStep", "position": 1, "name": "Get your Dashello API key", "text": "Generate an API key from Dashello Settings → API Keys.", "url": "https://dashello.co/blog/make-integration/#step-1" },
+    { "@type": "HowToStep", "position": 2, "name": "Create a new scenario in Make", "text": "Click 'Create a new scenario' and choose your trigger app.", "url": "https://dashello.co/blog/make-integration/#step-2" },
+    { "@type": "HowToStep", "position": 3, "name": "Add the HTTP module", "text": "Add an HTTP → Make a request module and configure the POST call to Dashello.", "url": "https://dashello.co/blog/make-integration/#step-3" },
+    { "@type": "HowToStep", "position": 4, "name": "Configure the request", "text": "Set the URL, headers, and JSON body with your metric data.", "url": "https://dashello.co/blog/make-integration/#step-4" },
+    { "@type": "HowToStep", "position": 5, "name": "Run and activate", "text": "Run the scenario once to test, then turn on scheduling.", "url": "https://dashello.co/blog/make-integration/#step-5" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dashello.co/" },
+    { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://dashello.co/blog/" },
+    { "@type": "ListItem", "position": 3, "name": "Make Integration", "item": "https://dashello.co/blog/make-integration/" }
+  ]
+}
+</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#0584EC;--blue-dark:#0468BE;--navy:#0F172A;--off:#F4F8FF}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#fff;color:#1a1a2e;overflow-x:hidden}
+nav{background:var(--navy);padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;position:fixed;top:0;left:0;right:0;z-index:100}
+.nav-links{display:flex;align-items:center;gap:24px}
+.nav-links a{font-size:13px;color:rgba(255,255,255,0.75);text-decoration:none;font-weight:600;transition:color 0.15s}
+.nav-links a:hover{color:#fff}
+.nav-logo-wrap{display:flex;flex-direction:column;gap:2px}
+.nav-logo-wrap img{height:32px;width:auto}
+.nav-tagline{font-size:10px;color:rgba(255,255,255,0.7);font-weight:600;letter-spacing:0.5px;padding-left:2px}
+.nav-cta{background:#fff;color:var(--blue);font-weight:700;font-size:14px;padding:10px 22px;border-radius:8px;text-decoration:none;transition:transform 0.15s}
+.nav-cta:hover{transform:scale(1.03)}
+.article-wrap{max-width:720px;margin:0 auto;padding:120px 5% 80px}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;color:#9CA3AF;margin-bottom:24px;flex-wrap:wrap}
+.breadcrumb a{color:#9CA3AF;text-decoration:none;font-weight:500;transition:color 0.15s}
+.breadcrumb a:hover{color:var(--blue)}
+.breadcrumb span{color:#d1d5db}
+.article-header{margin-bottom:40px}
+.article-tags{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.article-tag{font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:4px 10px;border-radius:4px;background:#E6F1FB;color:#0468BE}
+.article-tag.accent{background:#F3E8FF;color:#7C3AED}
+.article-header h1{font-size:clamp(28px,4vw,44px);font-weight:800;color:#1a1a2e;line-height:1.15;margin-bottom:12px;letter-spacing:-0.8px}
+.article-meta{font-size:13px;color:#9CA3AF;font-weight:500;display:flex;gap:16px;align-items:center}
+.article-meta .sep{color:#d1d5db}
+.article-img{width:100%;border-radius:16px;display:block;margin-bottom:40px;max-height:400px;object-fit:cover}
+.article-content h2{font-size:clamp(20px,2.5vw,28px);font-weight:800;color:#1a1a2e;margin-top:48px;margin-bottom:16px;letter-spacing:-0.3px;line-height:1.25}
+.article-content h3{font-size:16px;font-weight:700;color:#1a1a2e;margin-top:28px;margin-bottom:8px}
+.article-content p{font-size:15px;color:#444;line-height:1.8;margin-bottom:16px}
+.article-content ul,.article-content ol{margin:12px 0 20px;padding-left:24px}
+.article-content li{font-size:15px;color:#444;line-height:1.75;margin-bottom:6px}
+.article-content li strong{color:#1a1a2e}
+.article-content table{width:100%;border-collapse:collapse;margin:20px 0 28px;font-size:14px}
+.article-content th{text-align:left;padding:10px 14px;background:var(--off);font-weight:700;color:#1a1a2e;border:1px solid #e5e7eb}
+.article-content td{padding:10px 14px;border:1px solid #e5e7eb;color:#444}
+.article-content td:first-child{font-weight:600;color:#1a1a2e}
+.step-card{background:var(--off);border-radius:14px;padding:24px;margin-bottom:16px;border-left:4px solid var(--blue)}
+.step-card .step-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.step-card .step-num{width:28px;height:28px;background:var(--blue);color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0}
+.step-card .step-title{font-size:15px;font-weight:700;color:#1a1a2e}
+.step-card p{font-size:14px;color:#555;line-height:1.7;margin:0}
+.step-card code{background:#fff;border:1px solid #e5e7eb;padding:2px 6px;border-radius:4px;font-size:13px;font-family:'SF Mono',SFMono-Regular,ui-monospace,monospace}
+.code-block{background:#1a1a2e;border-radius:10px;padding:20px;margin:16px 0;overflow-x:auto}
+.code-block code{font-family:'SF Mono',SFMono-Regular,ui-monospace,monospace;font-size:13px;color:#e5e7eb;line-height:1.6;white-space:pre}
+.code-block .c{color:#6B7280}
+.code-block .s{color:#A7F3D0}
+.code-block .k{color:#93C5FD}
+.cta-section{background:var(--blue);border-radius:20px;padding:40px;text-align:center;margin:48px 0}
+.cta-section h3{font-size:22px;font-weight:800;color:#fff;margin-bottom:8px}
+.cta-section p{font-size:14px;color:rgba(255,255,255,0.82);line-height:1.65;margin-bottom:24px;max-width:480px;margin-left:auto;margin-right:auto}
+.cta-btn{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--blue);font-weight:700;font-size:15px;padding:14px 32px;border-radius:10px;text-decoration:none;transition:transform 0.15s}
+.cta-btn:hover{transform:translateY(-2px)}
+footer{background:#000;padding:48px 5%}
+.footer-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr auto auto;gap:40px;align-items:start}
+.footer-logo-wrap img{height:32px;width:auto;display:block;margin-bottom:6px}
+.footer-tagline{color:#fff;font-size:10.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-top:3px;line-height:1;padding-left:1px;margin-bottom:8px}
+.footer-copy{font-size:12px;color:#555;margin-top:4px}
+.footer-links h4{font-size:14px;font-weight:700;color:#fff;margin-bottom:16px}
+.footer-links ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-links li a{font-size:13px;color:#aaa;text-decoration:none;transition:color 0.15s;font-weight:600}
+.footer-links li a:hover{color:#fff}
+@media(max-width:768px){
+  nav{padding:0 20px}
+  .nav-links{gap:14px}
+  .article-wrap{padding:100px 20px 60px}
+  .cta-section{padding:28px 20px}
+  .footer-inner{grid-template-columns:1fr;gap:28px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div style="display:flex;align-items:center;gap:32px">
+  <a href="../../index.html" style="text-decoration:none">
+    <div class="nav-logo-wrap">
+      <img src="../../images/2023/08/White-Logo-Full.png" alt="Dashello" style="height:32px;width:auto;display:block">
+      <div class="nav-tagline">You Can Track That.</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="../../index.html">Home</a>
+    <a href="../../about.html">About</a>
+    <a href="../index.html">Blog</a>
+  </div>
+</div>
+  <a href="https://app.dashello.co" class="nav-cta">Try For Free</a>
+</nav>
+
+<article class="article-wrap">
+  <div class="breadcrumb">
+    <a href="../../index.html">Home</a><span>/</span>
+    <a href="../index.html">Blog</a><span>/</span>
+    <span>Make Integration</span>
+  </div>
+  <header class="article-header">
+    <div class="article-tags">
+      <span class="article-tag">Integration</span>
+      <span class="article-tag accent">Make</span>
+    </div>
+    <h1>How to Connect Make to Dashello</h1>
+    <div class="article-meta">
+      <span>June 30, 2026</span><span class="sep">·</span><span>6 min read</span><span class="sep">·</span><span>Dashello Team</span>
+    </div>
+  </header>
+
+  <img class="article-img" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&q=80&fit=crop" alt="Make automation workflows" loading="eager">
+
+  <div class="article-content">
+    <p><strong>Make (formerly Integromat) is a visual automation platform that connects thousands of apps.</strong> With Dashello and Make, you can build visual workflows that push data from any connected app into your Dashello dashboard — no code required. This guide walks you through setting up a Make scenario that sends metrics to Dashello using the HTTP module.</p>
+
+    <h2>What You'll Need</h2>
+    <ul>
+      <li>A <strong>Dashello account</strong> — <a href="https://app.dashello.co" style="color:var(--blue);font-weight:600">sign up free</a></li>
+      <li>A <strong>Make account</strong> — free tier works</li>
+      <li>Your <strong>Dashello API key</strong> (from Settings → API Keys)</li>
+    </ul>
+
+    <h2>What Is Make?</h2>
+    <p>Make is a visual platform for designing, building, and automating workflows. Unlike Zapier's linear approach, Make uses a visual scenario builder where you drag and drop modules, connect them with lines, and see your entire workflow at a glance. Make supports thousands of apps and gives you more control over data transformations, error handling, and complex routing logic.</p>
+
+    <h2>Why Connect Make to Dashello?</h2>
+    <p>Make's visual editor gives you more flexibility than traditional linear automations. You can build scenarios that pull from multiple sources, transform data conditionally, and then send only what matters to your Dashello dashboard. If you need complex workflows with branching logic, data formatting, and error handling, Make is the ideal tool.</p>
+
+    <table>
+      <thead><tr><th>Trigger App</th><th>Scenario</th><th>Dashello Metric</th></tr></thead>
+      <tbody>
+        <tr><td>Gmail</td><td>Watch for new emails, filter by label, count per day</td><td>Support Emails</td></tr>
+        <tr><td>Airtable</td><td>Watch for new records, aggregate sales data</td><td>Monthly Revenue</td></tr>
+        <tr><td>Webhook</td><td>Receive data from any source, transform, push to Dashello</td><td>Custom Metric</td></tr>
+        <tr><td>Shopify</td><td>Watch new orders, calculate daily total</td><td>Daily Orders</td></tr>
+        <tr><td>Slack</td><td>Watch channel messages, count per channel</td><td>Team Messages</td></tr>
+      </tbody>
+    </table>
+
+    <h2>How to Set Up the Make Integration</h2>
+
+    <div class="step-card">
+      <div class="step-head"><div class="step-num">1</div><div class="step-title">Get your Dashello API key</div></div>
+      <p>Log into Dashello at <a href="https://app.dashello.co" style="color:var(--blue);font-weight:600">app.dashello.co</a>. Go to <strong>Settings → API Keys</strong> and click <strong>Generate New Key</strong>. Name it "Make Integration". Copy the key — it starts with <code>dash_</code>. You'll paste this into your Make scenario.</p>
+    </div>
+
+    <div class="step-card">
+      <div class="step-head"><div class="step-num">2</div><div class="step-title">Create a new scenario in Make</div></div>
+      <p>In Make, click <strong>Create a new scenario</strong>. Start by choosing your trigger — the app that will kick off the workflow. For example, choose <strong>Gmail</strong> and select "Watch Emails" as the trigger. Configure the trigger settings and click OK.</p>
+    </div>
+
+    <div class="step-card">
+      <div class="step-head"><div class="step-num">3</div><div class="step-title">Add the HTTP module</div></div>
+      <p>Click the plus icon to add a new module. Search for <strong>HTTP</strong> and select <strong>Make a request</strong>. This module sends data from your scenario to the Dashello API.</p>
+    </div>
+
+    <div class="step-card">
+      <div class="step-head"><div class="step-num">4</div><div class="step-title">Configure the HTTP request</div></div>
+      <p>Configure the HTTP module with these settings:</p>
+      <ul>
+        <li><strong>URL:</strong> <code>https://dashello.co/api/ingest/metric</code></li>
+        <li><strong>Method:</strong> POST</li>
+        <li><strong>Headers:</strong><br><code>Authorization: Bearer dash_your_api_key</code><br><code>Content-Type: application/json</code></li>
+        <li><strong>Body type:</strong> Raw</li>
+        <li><strong>Content type:</strong> JSON (application/json)</li>
+        <li><strong>Request content:</strong> Enter your JSON payload (see below)</li>
+      </ul>
+      <div class="code-block"><code>{
+  <span class="s">"metric"</span>: <span class="s">"Daily Revenue"</span>,
+  <span class="s">"value"</span>: <span class="s">25000</span>,
+  <span class="s">"source"</span>: <span class="s">"make"</span>
+}</code></div>
+      <p style="margin-top:12px">Use Make's data mapping panel to pull dynamic values from your trigger module. For example, map <code>value</code> to the email count or a field from your trigger app.</p>
+    </div>
+
+    <div class="step-card">
+      <div class="step-head"><div class="step-num">5</div><div class="step-title">Run and activate</div></div>
+      <p>Click <strong>Run once</strong> to test your scenario. Make will execute the workflow and send a test request to Dashello. Check your Dashello dashboard — the metric should update. If successful, turn on scheduling to run your scenario automatically.</p>
+    </div>
+
+    <h2>Troubleshooting</h2>
+    <h3>HTTP module returns error</h3>
+    <p>Double-check your API key in the Authorization header. Make sure it starts with <code>dash_</code> and is active in Settings → API Keys.</p>
+    <h3>Scenario runs but no data in dashboard</h3>
+    <p>Check your <strong>Inbox</strong> in Dashello. If the metric name doesn't match an existing metric box, data is stored in your inbox. Adjust the <code>metric</code> field in your JSON payload to match an existing metric name.</p>
+    <h3>Rate limiting</h3>
+    <p>Dashello allows 100 requests per minute per API key. If your scenario runs at high frequency, add a delay module or use batch requests.</p>
+
+    <div class="cta-section">
+      <h3>Build Your First Make Scenario</h3>
+      <p>Connect any app to Dashello using Make's visual automation builder. Start tracking your metrics automatically.</p>
+      <a href="https://app.dashello.co" target="_blank" rel="noopener" class="cta-btn">Get Started Free</a>
+    </div>
+  </div>
+</article>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="../../index.html" style="text-decoration:none">
+        <div class="footer-logo-wrap"><img src="../../images/2023/08/White-Logo-Full.png" alt="Dashello"><div class="footer-tagline">You Can Track That.</div></div>
+      </a>
+      <div class="footer-copy" id="footer-copy"></div>
+    </div>
+    <div class="footer-links">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="../../about.html">About</a></li>
+        <li><a href="../index.html">Blog</a></li>
+        <li><a href="../../contact.html">Contact</a></li>
+        <li><a href="../../jobs.html">Jobs</a></li>
+        <li><a href="https://app.dashello.co/dev">Documentation</a></li>
+        <li><a href="../../privacy.html">Privacy & Security</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Integrations</h4>
+      <ul>
+        <li><a href="../google-sheets-integration/">Google Sheets</a></li>
+        <li><a href="../jobtread-integration/">JobTread</a></li>
+        <li><a href="index.html">Make</a></li>
+        <li><a href="../quickbooks-integration/">QuickBooks</a></li>
+        <li><a href="../stripe-integration/">Stripe</a></li>
+        <li><a href="../zapier-integration/">Zapier</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<script>document.getElementById('footer-copy').textContent='\u00A9'+new Date().getFullYear()+' Trinitatis Licensing Inc. All Rights Reserved.';</script>
+</body>
+</html>

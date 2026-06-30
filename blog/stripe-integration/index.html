@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Connect Stripe to Dashello — Dashello Blog</title>
+<meta name="description" content="Connect Stripe to Dashello and automatically track payments, subscriptions, charges, and revenue. Step-by-step webhook setup guide for your business dashboard.">
+<link rel="canonical" href="https://dashello.co/blog/stripe-integration/">
+<meta property="og:title" content="How to Connect Stripe to Dashello">
+<meta property="og:description" content="Connect Stripe to Dashello and automatically track payments, subscriptions, charges, and revenue. Step-by-step webhook setup guide.">
+<meta property="og:url" content="https://dashello.co/blog/stripe-integration/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200&q=80&fit=crop">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "How to Connect Stripe to Dashello",
+  "description": "Connect Stripe to Dashello and automatically track payments, subscriptions, charges, and revenue in your business dashboard.",
+  "image": ["https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200&q=80&fit=crop"],
+  "datePublished": "2026-06-30T10:00:00-05:00",
+  "dateModified": "2026-06-30T10:00:00-05:00",
+  "author": { "@type": "Organization", "name": "Dashello", "url": "https://dashello.co" },
+  "publisher": { "@type": "Organization", "name": "Dashello", "url": "https://dashello.co" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Connect Stripe to Dashello",
+  "description": "Set up a Stripe webhook to push payment events into your Dashello dashboard automatically.",
+  "estimatedTime": "PT10M",
+  "step": [
+    { "@type": "HowToStep", "position": 1, "name": "Create a source connector in Dashello", "text": "In Dashello Settings → Integrations, click 'Add New App' and select Stripe. Name your connector and save.", "url": "https://dashello.co/blog/stripe-integration/#step-1" },
+    { "@type": "HowToStep", "position": 2, "name": "Get your connector ID", "text": "Copy your connector ID from the connector settings page. You'll need it for the webhook URL.", "url": "https://dashello.co/blog/stripe-integration/#step-2" },
+    { "@type": "HowToStep", "position": 3, "name": "Map your Stripe fields to Dashello metrics", "text": "Define which Stripe events correspond to which metric boxes on your dashboard.", "url": "https://dashello.co/blog/stripe-integration/#step-3" },
+    { "@type": "HowToStep", "position": 4, "name": "Set up the webhook in Stripe", "text": "In Stripe Dashboard → Developers → Webhooks, add the endpoint URL and select events to send.", "url": "https://dashello.co/blog/stripe-integration/#step-4" },
+    { "@type": "HowToStep", "position": 5, "name": "Test and verify", "text": "Send a test event from Stripe and verify data appears in your Dashello dashboard.", "url": "https://dashello.co/blog/stripe-integration/#step-5" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dashello.co/" },
+    { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://dashello.co/blog/" },
+    { "@type": "ListItem", "position": 3, "name": "Stripe Integration", "item": "https://dashello.co/blog/stripe-integration/" }
+  ]
+}
+</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#0584EC;--blue-dark:#0468BE;--navy:#0F172A;--off:#F4F8FF}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#fff;color:#1a1a2e;overflow-x:hidden}
+nav{background:var(--navy);padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;position:fixed;top:0;left:0;right:0;z-index:100}
+.nav-links{display:flex;align-items:center;gap:24px}
+.nav-links a{font-size:13px;color:rgba(255,255,255,0.75);text-decoration:none;font-weight:600;transition:color 0.15s}
+.nav-links a:hover{color:#fff}
+.nav-logo-wrap{display:flex;flex-direction:column;gap:2px}
+.nav-logo-wrap img{height:32px;width:auto}
+.nav-tagline{font-size:10px;color:rgba(255,255,255,0.7);font-weight:600;letter-spacing:0.5px;padding-left:2px}
+.nav-cta{background:#fff;color:var(--blue);font-weight:700;font-size:14px;padding:10px 22px;border-radius:8px;text-decoration:none;transition:transform 0.15s}
+.nav-cta:hover{transform:scale(1.03)}
+.article-wrap{max-width:720px;margin:0 auto;padding:120px 5% 80px}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;color:#9CA3AF;margin-bottom:24px;flex-wrap:wrap}
+.breadcrumb a{color:#9CA3AF;text-decoration:none;font-weight:500;transition:color 0.15s}
+.breadcrumb a:hover{color:var(--blue)}
+.breadcrumb span{color:#d1d5db}
+.article-header{margin-bottom:40px}
+.article-tags{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.article-tag{font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:4px 10px;border-radius:4px;background:#E6F1FB;color:#0468BE}
+.article-tag.accent{background:#DCFCE7;color:#166534}
+.article-header h1{font-size:clamp(28px,4vw,44px);font-weight:800;color:#1a1a2e;line-height:1.15;margin-bottom:12px;letter-spacing:-0.8px}
+.article-meta{font-size:13px;color:#9CA3AF;font-weight:500;display:flex;gap:16px;align-items:center}
+.article-meta .sep{color:#d1d5db}
+.article-img{width:100%;border-radius:16px;display:block;margin-bottom:40px;max-height:400px;object-fit:cover}
+.article-content h2{font-size:clamp(20px,2.5vw,28px);font-weight:800;color:#1a1a2e;margin-top:48px;margin-bottom:16px;letter-spacing:-0.3px;line-height:1.25}
+.article-content h3{font-size:16px;font-weight:700;color:#1a1a2e;margin-top:28px;margin-bottom:8px}
+.article-content p{font-size:15px;color:#444;line-height:1.8;margin-bottom:16px}
+.article-content ul,.article-content ol{margin:12px 0 20px;padding-left:24px}
+.article-content li{font-size:15px;color:#444;line-height:1.75;margin-bottom:6px}
+.article-content li strong{color:#1a1a2e}
+.article-content table{width:100%;border-collapse:collapse;margin:20px 0 28px;font-size:14px}
+.article-content th{text-align:left;padding:10px 14px;background:var(--off);font-weight:700;color:#1a1a2e;border:1px solid #e5e7eb}
+.article-content td{padding:10px 14px;border:1px solid #e5e7eb;color:#444}
+.article-content td:first-child{font-weight:600;color:#1a1a2e}
+.step-card{background:var(--off);border-radius:14px;padding:24px;margin-bottom:16px;border-left:4px solid var(--blue)}
+.step-card .step-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.step-card .step-num{width:28px;height:28px;background:var(--blue);color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0}
+.step-card .step-title{font-size:15px;font-weight:700;color:#1a1a2e}
+.step-card p{font-size:14px;color:#555;line-height:1.7;margin:0}
+.step-card code{background:#fff;border:1px solid #e5e7eb;padding:2px 6px;border-radius:4px;font-size:13px;font-family:'SF Mono',SFMono-Regular,ui-monospace,monospace}
+.code-block{background:#1a1a2e;border-radius:10px;padding:20px;margin:16px 0;overflow-x:auto}
+.code-block code{font-family:'SF Mono',SFMono-Regular,ui-monospace,monospace;font-size:13px;color:#e5e7eb;line-height:1.6;white-space:pre}
+.code-block .c{color:#6B7280}
+.code-block .s{color:#A7F3D0}
+.code-block .k{color:#93C5FD}
+.cta-section{background:var(--blue);border-radius:20px;padding:40px;text-align:center;margin:48px 0}
+.cta-section h3{font-size:22px;font-weight:800;color:#fff;margin-bottom:8px}
+.cta-section p{font-size:14px;color:rgba(255,255,255,0.82);line-height:1.65;margin-bottom:24px;max-width:480px;margin-left:auto;margin-right:auto}
+.cta-btn{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--blue);font-weight:700;font-size:15px;padding:14px 32px;border-radius:10px;text-decoration:none;transition:transform 0.15s}
+.cta-btn:hover{transform:translateY(-2px)}
+footer{background:#000;padding:48px 5%}
+.footer-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr auto auto;gap:40px;align-items:start}
+.footer-logo-wrap img{height:32px;width:auto;display:block;margin-bottom:6px}
+.footer-tagline{color:#fff;font-size:10.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-top:3px;line-height:1;padding-left:1px;margin-bottom:8px}
+.footer-copy{font-size:12px;color:#555;margin-top:4px}
+.footer-links h4{font-size:14px;font-weight:700;color:#fff;margin-bottom:16px}
+.footer-links ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-links li a{font-size:13px;color:#aaa;text-decoration:none;transition:color 0.15s;font-weight:600}
+.footer-links li a:hover{color:#fff}
+@media(max-width:768px){
+  nav{padding:0 20px}
+  .nav-links{gap:14px}
+  .article-wrap{padding:100px 20px 60px}
+  .cta-section{padding:28px 20px}
+  .footer-inner{grid-template-columns:1fr;gap:28px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div style="display:flex;align-items:center;gap:32px">
+  <a href="../../index.html" style="text-decoration:none">
+    <div class="nav-logo-wrap">
+      <img src="../../images/2023/08/White-Logo-Full.png" alt="Dashello" style="height:32px;width:auto;display:block">
+      <div class="nav-tagline">You Can Track That.</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="../../index.html">Home</a>
+    <a href="../../about.html">About</a>
+    <a href="../index.html">Blog</a>
+  </div>
+</div>
+  <a href="https://app.dashello.co" class="nav-cta">Try For Free</a>
+</nav>
+
+<article class="article-wrap">
+  <div class="breadcrumb">
+    <a href="../../index.html">Home</a><span>/</span>
+    <a href="../index.html">Blog</a><span>/</span>
+    <span>Stripe Integration</span>
+  </div>
+  <header class="article-header">
+    <div class="article-tags">
+      <span class="article-tag">Integration</span>
+      <span class="article-tag accent">Stripe</span>
+    </div>
+    <h1>How to Connect Stripe to Dashello</h1>
+    <div class="article-meta">
+      <span>June 30, 2026</span><span class="sep">·</span><span>6 min read</span><span class="sep">·</span><span>Dashello Team</span>
+    </div>
+  </header>
+
+  <img class="article-img" src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200&q=80&fit=crop" alt="Stripe payment dashboard" loading="eager">
+
+  <div class="article-content">
+    <p><strong>Stripe processes billions in payments every year.</strong> With the Dashello Stripe integration, you can track every payment, subscription, invoice, and charge in real-time — all from your business dashboard. This guide walks you through setting up the Stripe webhook so payment data flows into Dashello automatically.</p>
+
+    <h2>What You'll Need</h2>
+    <ul>
+      <li>A <strong>Dashello account</strong> — <a href="https://app.dashello.co" style="color:var(--blue);font-weight:600">sign up free</a></li>
+      <li>A <strong>Stripe account</strong> with admin access</li>
+    </ul>
+
+    <h2>What Is Stripe?</h2>
+    <p>Stripe is an online payment processing platform used by millions of businesses to accept payments, manage subscriptions, handle invoicing, and track revenue. Stripe handles everything from one-time credit card transactions to complex recurring billing.</p>
+
+    <h2>Why Connect Stripe to Dashello?</h2>
+    <p>Your Stripe dashboard shows individual transactions. Dashello shows you the big picture. By connecting Stripe to your Dashello dashboard, you can track revenue, monitor failed payments, watch subscription churn, and see every charge alongside your other business metrics — all in one place.</p>
+
+    <table>
+      <thead><tr><th>Stripe Event</th><th>Dashello Metric</th><th>What It Tracks</th></tr></thead>
+      <tbody>
+        <tr><td><code>invoice.paid</code></td><td>Invoice Paid</td><td>Revenue from paid invoices</td></tr>
+        <tr><td><code>charge.succeeded</code></td><td>Charge Amount</td><td>One-time and recurring charges</td></tr>
+        <tr><td><code>invoice.payment_failed</code></td><td>Payment Failed</td><td>Count of failed payments</td></tr>
+        <tr><td><code>customer.subscription.created</code></td><td>New Subscriptions</td><td>New recurring subscription count</td></tr>
+        <tr><td><code>customer.subscription.deleted</code></td><td>Subscriptions Cancelled</td><td>Churn and cancellations</td></tr>
+      </tbody>
+    </table>
+
+    <h2>How to Set Up the Stripe Integration</h2>
+
+    <div class="step-card">
+      <div class="step-head"><div class="step-num">1</div><div class="step-title">Create a source connector in Dashello</div></div>
+      <p>Log into Dashello at <a href="https://app.dashello.co" style="color:var(--blue);font-weight:600">app.dashello.co</a>. Go to <strong>Settings → Integrations</strong> and click <strong>Add New App</strong>. Select <strong>Stripe</strong> from the list. Give your connector a name like "Stripe Account" and save. Dashello generates a unique connector ID you'll use in the webhook URL.</p>
+    </div>
+
+    <div class="step-card">
+      <div class="step-head"><div class="step-num">2</div><div class="step-title">Copy your connector ID</div></div>
+      <p>From your connector settings page in Dashello, copy the <strong>connector ID</strong>. You'll paste it into your Stripe webhook URL. The URL format is: <code>https://dashello.co/api/webhook/stripe?connector_id=your_id</code>. Keep this URL handy — you'll paste it into Stripe next.</p>
+    </div>
+
+    <div class="step-card">
+      <div class="step-head"><div class="step-num">3</div><div class="step-title">Map your Stripe fields to Dashello metrics</div></div>
+      <p>In the connector settings, tell Dashello which Stripe fields should update which metric boxes. For example, map <strong>Stripe invoice.total → Monthly Revenue</strong> and <strong>Stripe charge.amount → Daily Charges</strong>. You can map multiple fields to different metric boxes. Data that doesn't match a mapping will go to your inbox for manual assignment.</p>
+    </div>
+
+    <div class="step-card">
+      <div class="step-head"><div class="step-num">4</div><div class="step-title">Set up the webhook in Stripe</div></div>
+      <p>Go to your <a href="https://dashboard.stripe.com/webhooks" target="_blank" rel="noopener" style="color:var(--blue);font-weight:600">Stripe Dashboard → Developers → Webhooks</a>. Click <strong>Add endpoint</strong> and paste your Dashello webhook URL:</p>
+      <div class="code-block"><code>https://dashello.co/api/webhook/stripe?connector_id=<span class="s">your_connector_id</span></code></div>
+      <p style="margin-top:12px">Under <strong>Events to send</strong>, select the events you want to track. At minimum, select <code>invoice.paid</code>, <code>charge.succeeded</code>, <code>invoice.payment_failed</code>, <code>customer.subscription.created</code>, and <code>customer.subscription.deleted</code>. Click <strong>Add endpoint</strong> to save.</p>
+    </div>
+
+    <div class="step-card">
+      <div class="step-head"><div class="step-num">5</div><div class="step-title">Test and verify</div></div>
+      <p>Stripe provides a <strong>Send test webhook</strong> button. Send a test event and check your Dashello dashboard — the data should appear in your mapped metric boxes. If data doesn't appear, check your inbox for unmapped events. Once verified, your Stripe webhook is live and data will flow automatically with every new payment event.</p>
+    </div>
+
+    <h2>Troubleshooting</h2>
+    <h3>Webhook shows "success" but no data in my dashboard</h3>
+    <p>Check your <strong>Inbox</strong> in Dashello. If the Stripe field doesn't match an existing metric box mapping, data is stored in your inbox. Go to Settings → Integrations → your Stripe connector and update your field mappings.</p>
+    <h3>Getting a 404 error</h3>
+    <p>Verify your connector ID is correct in the webhook URL. You can find it in Dashello Settings → Integrations → your Stripe connector.</p>
+
+    <div class="cta-section">
+      <h3>Start Tracking Stripe in Dashello</h3>
+      <p>Connect Stripe to your Dashello dashboard and see every payment, subscription, and charge alongside your other business metrics.</p>
+      <a href="https://app.dashello.co" target="_blank" rel="noopener" class="cta-btn">Get Started Free</a>
+    </div>
+  </div>
+</article>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="../../index.html" style="text-decoration:none">
+        <div class="footer-logo-wrap"><img src="../../images/2023/08/White-Logo-Full.png" alt="Dashello"><div class="footer-tagline">You Can Track That.</div></div>
+      </a>
+      <div class="footer-copy" id="footer-copy"></div>
+    </div>
+    <div class="footer-links">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="../../about.html">About</a></li>
+        <li><a href="../index.html">Blog</a></li>
+        <li><a href="../../contact.html">Contact</a></li>
+        <li><a href="../../jobs.html">Jobs</a></li>
+        <li><a href="https://app.dashello.co/dev">Documentation</a></li>
+        <li><a href="../../privacy.html">Privacy & Security</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Integrations</h4>
+      <ul>
+        <li><a href="../google-sheets-integration/">Google Sheets</a></li>
+        <li><a href="../jobtread-integration/">JobTread</a></li>
+        <li><a href="../make-integration/">Make</a></li>
+        <li><a href="../quickbooks-integration/">QuickBooks</a></li>
+        <li><a href="index.html">Stripe</a></li>
+        <li><a href="../zapier-integration/">Zapier</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<script>document.getElementById('footer-copy').textContent='\u00A9'+new Date().getFullYear()+' Trinitatis Licensing Inc. All Rights Reserved.';</script>
+</body>
+</html>

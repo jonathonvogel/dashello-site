@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Connect Google Sheets to Dashello — Dashello Blog</title>
+<meta name="description" content="Connect Google Sheets to Dashello and push metrics from any spreadsheet into your dashboard. Google Apps Script, Zapier, or Make — three methods to automate your data.">
+<link rel="canonical" href="https://dashello.co/blog/google-sheets-integration/">
+<meta property="og:title" content="How to Connect Google Sheets to Dashello">
+<meta property="og:description" content="Connect Google Sheets to Dashello and push metrics from any spreadsheet into your dashboard. Google Apps Script, Zapier, or Make — three methods to automate.">
+<meta property="og:url" content="https://dashello.co/blog/google-sheets-integration/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=1200&q=80&fit=crop">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "How to Connect Google Sheets to Dashello",
+  "description": "Connect Google Sheets to Dashello and push metrics from any spreadsheet into your dashboard. Three methods: Google Apps Script, Zapier, or Make.",
+  "image": ["https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=1200&q=80&fit=crop"],
+  "datePublished": "2026-06-30T10:00:00-05:00",
+  "dateModified": "2026-06-30T10:00:00-05:00",
+  "author": { "@type": "Organization", "name": "Dashello", "url": "https://dashello.co" },
+  "publisher": { "@type": "Organization", "name": "Dashello", "url": "https://dashello.co" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Connect Google Sheets to Dashello",
+  "description": "Three methods to push data from Google Sheets into your Dashello dashboard, from Apps Script to no-code automation.",
+  "estimatedTime": "PT10M",
+  "step": [
+    { "@type": "HowToStep", "position": 1, "name": "Get your Dashello API key", "text": "Generate an API key from Dashello Settings → API Keys.", "url": "https://dashello.co/blog/google-sheets-integration/#step-1" },
+    { "@type": "HowToStep", "position": 2, "name": "Method 1: Google Apps Script", "text": "Open Extensions → Apps Script in your sheet and paste the Dashello push function.", "url": "https://dashello.co/blog/google-sheets-integration/#step-2" },
+    { "@type": "HowToStep", "position": 3, "name": "Method 2: Zapier", "text": "Create a Zap with Google Sheets as the trigger and Webhooks by Zapier as the action.", "url": "https://dashello.co/blog/google-sheets-integration/#step-3" },
+    { "@type": "HowToStep", "position": 4, "name": "Method 3: Make", "text": "Build a Make scenario with a Google Sheets watch module and HTTP request.", "url": "https://dashello.co/blog/google-sheets-integration/#step-4" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dashello.co/" },
+    { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://dashello.co/blog/" },
+    { "@type": "ListItem", "position": 3, "name": "Google Sheets Integration", "item": "https://dashello.co/blog/google-sheets-integration/" }
+  ]
+}
+</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#0584EC;--blue-dark:#0468BE;--navy:#0F172A;--off:#F4F8FF}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#fff;color:#1a1a2e;overflow-x:hidden}
+nav{background:var(--navy);padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;position:fixed;top:0;left:0;right:0;z-index:100}
+.nav-links{display:flex;align-items:center;gap:24px}
+.nav-links a{font-size:13px;color:rgba(255,255,255,0.75);text-decoration:none;font-weight:600;transition:color 0.15s}
+.nav-links a:hover{color:#fff}
+.nav-logo-wrap{display:flex;flex-direction:column;gap:2px}
+.nav-logo-wrap img{height:32px;width:auto}
+.nav-tagline{font-size:10px;color:rgba(255,255,255,0.7);font-weight:600;letter-spacing:0.5px;padding-left:2px}
+.nav-cta{background:#fff;color:var(--blue);font-weight:700;font-size:14px;padding:10px 22px;border-radius:8px;text-decoration:none;transition:transform 0.15s}
+.nav-cta:hover{transform:scale(1.03)}
+.article-wrap{max-width:720px;margin:0 auto;padding:120px 5% 80px}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;color:#9CA3AF;margin-bottom:24px;flex-wrap:wrap}
+.breadcrumb a{color:#9CA3AF;text-decoration:none;font-weight:500;transition:color 0.15s}
+.breadcrumb a:hover{color:var(--blue)}
+.breadcrumb span{color:#d1d5db}
+.article-header{margin-bottom:40px}
+.article-tags{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.article-tag{font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:4px 10px;border-radius:4px;background:#E6F1FB;color:#0468BE}
+.article-tag.accent{background:#DCFCE7;color:#166534}
+.article-header h1{font-size:clamp(28px,4vw,44px);font-weight:800;color:#1a1a2e;line-height:1.15;margin-bottom:12px;letter-spacing:-0.8px}
+.article-meta{font-size:13px;color:#9CA3AF;font-weight:500;display:flex;gap:16px;align-items:center}
+.article-meta .sep{color:#d1d5db}
+.article-img{width:100%;border-radius:16px;display:block;margin-bottom:40px;max-height:400px;object-fit:cover}
+.article-content h2{font-size:clamp(20px,2.5vw,28px);font-weight:800;color:#1a1a2e;margin-top:48px;margin-bottom:16px;letter-spacing:-0.3px;line-height:1.25}
+.article-content h3{font-size:16px;font-weight:700;color:#1a1a2e;margin-top:28px;margin-bottom:8px}
+.article-content p{font-size:15px;color:#444;line-height:1.8;margin-bottom:16px}
+.article-content ul,.article-content ol{margin:12px 0 20px;padding-left:24px}
+.article-content li{font-size:15px;color:#444;line-height:1.75;margin-bottom:6px}
+.article-content li strong{color:#1a1a2e}
+.article-content table{width:100%;border-collapse:collapse;margin:20px 0 28px;font-size:14px}
+.article-content th{text-align:left;padding:10px 14px;background:var(--off);font-weight:700;color:#1a1a2e;border:1px solid #e5e7eb}
+.article-content td{padding:10px 14px;border:1px solid #e5e7eb;color:#444}
+.article-content td:first-child{font-weight:600;color:#1a1a2e}
+.step-card{background:var(--off);border-radius:14px;padding:24px;margin-bottom:16px;border-left:4px solid var(--blue)}
+.step-card .step-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.step-card .step-num{width:28px;height:28px;background:var(--blue);color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0}
+.step-card .step-title{font-size:15px;font-weight:700;color:#1a1a2e}
+.step-card p{font-size:14px;color:#555;line-height:1.7;margin:0}
+.step-card code{background:#fff;border:1px solid #e5e7eb;padding:2px 6px;border-radius:4px;font-size:13px;font-family:'SF Mono',SFMono-Regular,ui-monospace,monospace}
+.code-block{background:#1a1a2e;border-radius:10px;padding:20px;margin:16px 0;overflow-x:auto}
+.code-block code{font-family:'SF Mono',SFMono-Regular,ui-monospace,monospace;font-size:13px;color:#e5e7eb;line-height:1.6;white-space:pre}
+.code-block .c{color:#6B7280}
+.code-block .s{color:#A7F3D0}
+.code-block .k{color:#93C5FD}
+.cta-section{background:var(--blue);border-radius:20px;padding:40px;text-align:center;margin:48px 0}
+.cta-section h3{font-size:22px;font-weight:800;color:#fff;margin-bottom:8px}
+.cta-section p{font-size:14px;color:rgba(255,255,255,0.82);line-height:1.65;margin-bottom:24px;max-width:480px;margin-left:auto;margin-right:auto}
+.cta-btn{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--blue);font-weight:700;font-size:15px;padding:14px 32px;border-radius:10px;text-decoration:none;transition:transform 0.15s}
+.cta-btn:hover{transform:translateY(-2px)}
+footer{background:#000;padding:48px 5%}
+.footer-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr auto auto;gap:40px;align-items:start}
+.footer-logo-wrap img{height:32px;width:auto;display:block;margin-bottom:6px}
+.footer-tagline{color:#fff;font-size:10.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-top:3px;line-height:1;padding-left:1px;margin-bottom:8px}
+.footer-copy{font-size:12px;color:#555;margin-top:4px}
+.footer-links h4{font-size:14px;font-weight:700;color:#fff;margin-bottom:16px}
+.footer-links ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-links li a{font-size:13px;color:#aaa;text-decoration:none;transition:color 0.15s;font-weight:600}
+.footer-links li a:hover{color:#fff}
+@media(max-width:768px){
+  nav{padding:0 20px}
+  .nav-links{gap:14px}
+  .article-wrap{padding:100px 20px 60px}
+  .cta-section{padding:28px 20px}
+  .footer-inner{grid-template-columns:1fr;gap:28px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div style="display:flex;align-items:center;gap:32px">
+  <a href="../../index.html" style="text-decoration:none">
+    <div class="nav-logo-wrap">
+      <img src="../../images/2023/08/White-Logo-Full.png" alt="Dashello" style="height:32px;width:auto;display:block">
+      <div class="nav-tagline">You Can Track That.</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="../../index.html">Home</a>
+    <a href="../../about.html">About</a>
+    <a href="../index.html">Blog</a>
+  </div>
+</div>
+  <a href="https://app.dashello.co" class="nav-cta">Try For Free</a>
+</nav>
+
+<article class="article-wrap">
+  <div class="breadcrumb">
+    <a href="../../index.html">Home</a><span>/</span>
+    <a href="../index.html">Blog</a><span>/</span>
+    <span>Google Sheets Integration</span>
+  </div>
+  <header class="article-header">
+    <div class="article-tags">
+      <span class="article-tag">Integration</span>
+      <span class="article-tag accent">Google Sheets</span>
+    </div>
+    <h1>How to Connect Google Sheets to Dashello</h1>
+    <div class="article-meta">
+      <span>June 30, 2026</span><span class="sep">·</span><span>7 min read</span><span class="sep">·</span><span>Dashello Team</span>
+    </div>
+  </header>
+
+  <img class="article-img" src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=1200&q=80&fit=crop" alt="Google Sheets spreadsheet" loading="eager">
+
+  <div class="article-content">
+    <p><strong>Google Sheets is where many businesses already track their metrics.</strong> Now you can connect those spreadsheets directly to Dashello and push the numbers into your dashboard automatically. This guide covers three methods: Google Apps Script for direct integration, Zapier for no-code automation, and Make for visual workflows.</p>
+
+    <h2>What You'll Need</h2>
+    <ul>
+      <li>A <strong>Dashello account</strong> — <a href="https://app.dashello.co" style="color:var(--blue);font-weight:600">sign up free</a></li>
+      <li>A <strong>Google account</strong> with access to Google Sheets</li>
+      <li>Your <strong>Dashello API key</strong> (from Settings → API Keys)</li>
+    </ul>
+
+    <h2>Why Connect Google Sheets to Dashello?</h2>
+    <p>Many business owners already track their metrics in Google Sheets — weekly revenue, new leads, project hours, inventory levels. Connecting Sheets to Dashello means those numbers automatically show up in your dashboard alongside data from every other tool. No copy-paste, no double entry, no missed updates.</p>
+
+    <table>
+      <thead><tr><th>Sheet Data</th><th>Dashello Metric</th><th>Update Method</th></tr></thead>
+      <tbody>
+        <tr><td>Weekly revenue tracker</td><td>Weekly Revenue</td><td>Apps Script onEdit trigger</td></tr>
+        <tr><td>Lead intake log</td><td>New Leads</td><td>Zapier New Row trigger</td></tr>
+        <tr><td>Project hours sheet</td><td>Hours Logged</td><td>Make scenario on schedule</td></tr>
+        <tr><td>Budget vs actual</td><td>Budget Variance</td><td>Apps Script daily trigger</td></tr>
+        <tr><td>Customer count</td><td>Total Customers</td><td>Zapier row count</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Method 1: Google Apps Script (Direct)</h2>
+    <p>This is the most direct method. Apps Script runs inside Google Sheets and can call the Dashello API whenever a cell changes or on a schedule.</p>
+
+    <div class="step-card">
+      <div class="step-head"><div class="step-num">1</div><div class="step-title">Get your Dashello API key</div></div>
+      <p>Go to Dashello <strong>Settings → API Keys</strong> and generate a new key. Copy the key — it starts with <code>dash_</code>.</p>
+    </div>
+
+    <div class="step-card">
+      <div class="step-head"><div class="step-num">2</div><div class="step-title">Open Apps Script in your sheet</div></div>
+      <p>Open your Google Sheet. Go to <strong>Extensions → Apps Script</strong>. Delete any placeholder code and paste the following:</p>
+      <div class="code-block"><code><span class="k">function</span> pushToDashello(metric, value) {
+  <span class="k">const</span> API_KEY = <span class="s">"dash_your_api_key"</span>;
+  <span class="k">const</span> options = {
+    method: <span class="s">"post"</span>,
+    headers: { <span class="s">"Authorization"</span>: <span class="s">"Bearer "</span> + API_KEY },
+    contentType: <span class="s">"application/json"</span>,
+    payload: JSON.stringify({ metric, value, source: <span class="s">"google-sheets"</span> }),
+  };
+  UrlFetchApp.fetch(<span class="s">"https://dashello.co/api/ingest/metric"</span>, options);
+}
+
+<span class="c">// Trigger on edit</span>
+<span class="k">function</span> onEdit(e) {
+  pushToDashello(<span class="s">"Sheet Updated"</span>, 1);
+}
+
+<span class="c">// Or run on a schedule: open the sheet daily, read a cell</span>
+<span class="k">function</span> dailyPush() {
+  <span class="k">const</span> sheet = SpreadsheetApp.getActiveSheet();
+  <span class="k">const</span> revenue = sheet.getRange(<span class="s">"B2"</span>).getValue();
+  pushToDashello(<span class="s">"Weekly Revenue"</span>, revenue);
+}</code></div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-head"><div class="step-num">3</div><div class="step-title">Save and set triggers</div></div>
+      <p>Click <strong>Save</strong>. To run on a schedule, click the clock icon (Triggers) and add a new trigger for <code>dailyPush</code> set to run daily. To run on every edit, the <code>onEdit</code> function runs automatically. Click <strong>Run</strong> once to test and accept permissions.</p>
+    </div>
+
+    <h2>Method 2: Zapier (No-Code)</h2>
+    <p>Use Zapier's Google Sheets integration with the Webhooks by Zapier action. See our <a href="../zapier-integration/" style="color:var(--blue);font-weight:600">Zapier integration guide</a> for complete setup instructions. In summary: create a Zap with <strong>Google Sheets → New Spreadsheet Row</strong> as the trigger, then add a <strong>Webhooks by Zapier → POST</strong> action pointing to <code>https://dashello.co/api/ingest/metric</code> with your API key in the Authorization header.</p>
+
+    <h2>Method 3: Make (Visual Workflow)</h2>
+    <p>Use Make's Google Sheets module to watch for changes and the HTTP module to push to Dashello. See our <a href="../make-integration/" style="color:var(--blue);font-weight:600">Make integration guide</a> for details. Create a scenario with <strong>Google Sheets → Watch Rows</strong> as the trigger, then add an <strong>HTTP → Make a request</strong> module configured as a POST to <code>https://dashello.co/api/ingest/metric</code>.</p>
+
+    <h3>Which method should I use?</h3>
+    <table>
+      <thead><tr><th>Method</th><th>Best For</th><th>Skill Level</th></tr></thead>
+      <tbody>
+        <tr><td>Apps Script</td><td>Direct control, custom triggers, complex logic</td><td>Some coding</td></tr>
+        <tr><td>Zapier</td><td>Quick setup, many other apps already connected</td><td>No code</td></tr>
+        <tr><td>Make</td><td>Visual workflows, branching logic, data transforms</td><td>No code</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Troubleshooting</h2>
+    <h3>Apps Script: Authorization Required</h3>
+    <p>The first time you run the script, Google will ask you to review permissions. Click "Review Permissions," select your account, and click "Allow."</p>
+    <h3>Data not appearing in dashboard</h3>
+    <p>Check your <strong>Inbox</strong> in Dashello. If the metric name doesn't match an existing box, data is stored there. Make sure the <code>metric</code> field in your code matches an existing metric name exactly.</p>
+
+    <div class="cta-section">
+      <h3>Start Tracking Sheets in Dashello</h3>
+      <p>Connect your Google Sheets metrics to Dashello and stop manually copying numbers between tools.</p>
+      <a href="https://app.dashello.co" target="_blank" rel="noopener" class="cta-btn">Get Started Free</a>
+    </div>
+  </div>
+</article>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="../../index.html" style="text-decoration:none">
+        <div class="footer-logo-wrap"><img src="../../images/2023/08/White-Logo-Full.png" alt="Dashello"><div class="footer-tagline">You Can Track That.</div></div>
+      </a>
+      <div class="footer-copy" id="footer-copy"></div>
+    </div>
+    <div class="footer-links">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="../../about.html">About</a></li>
+        <li><a href="../index.html">Blog</a></li>
+        <li><a href="../../contact.html">Contact</a></li>
+        <li><a href="../../jobs.html">Jobs</a></li>
+        <li><a href="https://app.dashello.co/dev">Documentation</a></li>
+        <li><a href="../../privacy.html">Privacy & Security</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Integrations</h4>
+      <ul>
+        <li><a href="index.html">Google Sheets</a></li>
+        <li><a href="../jobtread-integration/">JobTread</a></li>
+        <li><a href="../make-integration/">Make</a></li>
+        <li><a href="../quickbooks-integration/">QuickBooks</a></li>
+        <li><a href="../stripe-integration/">Stripe</a></li>
+        <li><a href="../zapier-integration/">Zapier</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<script>document.getElementById('footer-copy').textContent='\u00A9'+new Date().getFullYear()+' Trinitatis Licensing Inc. All Rights Reserved.';</script>
+</body>
+</html>
