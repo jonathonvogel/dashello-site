@@ -52,6 +52,7 @@ nav{background:transparent;padding:0 5%;height:112px;display:flex;align-items:ce
 .nav-logo-wrap img{height:96px;width:auto}
 .nav-cta{background:#fff;color:var(--blue);font-weight:700;font-size:14px;padding:10px 22px;border-radius:8px;text-decoration:none;transition:transform 0.15s}
 .nav-cta:hover{transform:scale(1.03)}
+.beta-badge{display:inline-block;background:var(--blue);color:#fff;font-size:9px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:999px;vertical-align:middle}
 .nav-right{display:flex;align-items:center;gap:16px}
 .nav-link{font-size:13px;color:rgba(255,255,255,0.8);text-decoration:none;font-weight:600;transition:color 0.15s}
 .nav-link:hover{color:#fff}
@@ -171,10 +172,11 @@ footer{background:#000;padding:48px 5%}
      NAV
      ============================================================ -->
 <nav>
-<a href="index.html" style="text-decoration:none">
+<a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:8px">
   <div class="nav-logo-wrap">
     <img src="images/2023/08/5.png" alt="Dashello" style="height:96px;width:auto;display:block">
   </div>
+      <span class="beta-badge">BETA</span>
 </a>
 <div class="nav-right">
   <a href="pricing/index.html" class="nav-link">Pricing</a>
