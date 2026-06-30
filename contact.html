@@ -17,8 +17,16 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#fff;color:#1a1a2e;ov
 nav{background:#fff;padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e5e7eb}
 .nav-logo-wrap{display:flex;flex-direction:column;gap:2px}
 .nav-logo-wrap img{height:32px;width:auto}
+.nav-right{display:flex;align-items:center;gap:16px}
+.nav-link{font-size:13px;color:#555;text-decoration:none;font-weight:600;transition:color 0.15s}
+.nav-link:hover{color:var(--blue)}
 .nav-cta{background:var(--blue);color:#fff;font-weight:700;font-size:14px;padding:10px 22px;border-radius:8px;text-decoration:none;transition:transform 0.15s}
 .nav-cta:hover{transform:scale(1.03)}
+.nav-hamburger{display:none;background:none;border:none;color:#1a1a2e;font-size:24px;cursor:pointer;padding:4px;line-height:1}
+.mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;background:#fff;padding:20px;z-index:99;flex-direction:column;gap:0;border-bottom:1px solid #e5e7eb}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:15px;color:#1a1a2e;text-decoration:none;font-weight:600;padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.06)}
+.mobile-menu a:last-child{border-bottom:none}
 
 /* ---- FORM SECTION ---- */
 .form-section{padding:80px 5%}
@@ -38,6 +46,8 @@ footer{background:#000;padding:48px 5%}
 
 @media(max-width:768px){
   nav{padding:0 20px}
+  .nav-right{display:none}
+  .nav-hamburger{display:block}
   .form-section{padding:40px 20px}
   .footer-inner{grid-template-columns:1fr}
 }
@@ -52,8 +62,20 @@ footer{background:#000;padding:48px 5%}
       <div style="color:#1a1a2e;font-size:10.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-top:3px;line-height:1;padding-left:1px">You Can Track That.</div>
     </div>
   </a>
-  <a href="https://app.dashello.co" class="nav-cta">Go to App</a>
+  <div class="nav-right">
+    <a href="pricing/index.html" class="nav-link">Pricing</a>
+    <a href="https://app.dashello.co" class="nav-link">Log in</a>
+    <a href="pricing/index.html" class="nav-cta">Try For Free</a>
+  </div>
+  <button class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')" aria-label="Menu">
+    <i class="ti ti-menu-2"></i>
+  </button>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="pricing/index.html">Pricing</a>
+  <a href="https://app.dashello.co">Log in</a>
+  <a href="pricing/index.html">Try For Free</a>
+</div>
 
 
 <section class="form-section">
@@ -82,6 +104,7 @@ footer{background:#000;padding:48px 5%}
         <li><a href="blog/index.html">Blog</a></li>
         <li><a href="contact.html">Contact</a></li>
         <li><a href="jobs.html">Jobs</a></li>
+        <li><a href="pricing/index.html">Pricing</a></li>
         <li><a href="https://app.dashello.co/dev">Documentation</a></li>
         <li><a href="privacy.html">Privacy & Security</a></li>
       </ul>
