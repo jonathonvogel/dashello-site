@@ -1,4 +1,4 @@
-(function(){
+document.addEventListener('DOMContentLoaded', function(){
   var f = document.getElementById('footer-container');
   if (!f) return;
   f.innerHTML =
@@ -7,7 +7,7 @@
         '<div>'+
           '<a href="/" style="text-decoration:none">'+
             '<div class="footer-logo-wrap">'+
-              '<img src="/images/Beta Dark.png" alt="Dashello" style="height:96px;width:auto;display:block;margin-bottom:6px">'+
+              '<img src="/images/Beta Light.png" alt="Dashello" style="height:96px;width:auto;display:block;margin-bottom:6px">'+
             '</div>'+
           '</a>'+
           '<div class="footer-copy" id="footer-copy"></div>'+
@@ -39,4 +39,4 @@
     '</footer>';
   document.getElementById('footer-copy').textContent =
     '\u00A9' + new Date().getFullYear() + ' Trinitatis Licensing Inc. All Rights Reserved.';
-})();
+});
