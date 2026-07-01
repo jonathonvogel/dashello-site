@@ -184,6 +184,7 @@ footer{background:#000;padding:48px 5%}
       <a href="#section-2">2. Your login & account security</a>
       <a href="#section-3">3. Third-party app integrations</a>
       <a href="#section-4">4. AI features & your privacy</a>
+      <a href="#section-4b">4b. Bring your own AI key</a>
       <a href="#section-5">5. Sharing & public features</a>
       <a href="#section-6">6. What information we collect</a>
       <a href="#section-7">7. How we use your information</a>
@@ -251,6 +252,45 @@ footer{background:#000;padding:48px 5%}
         <li><strong>AI providers:</strong> We use third-party AI services including Google Cloud AI, Anthropic, DALL-E, and Perplexity. Your input and output may be processed by these providers under their respective privacy policies.</li>
         <li><strong>Disconnect anytime:</strong> Turning off AI is instant. No further data is sent to any AI provider.</li>
       </ul>
+    </div>
+
+    <div class="policy-section" id="section-4b">
+      <h2>4b. Bring your own AI key</h2>
+      <p><em>In plain English: By default, Dashello routes AI requests through private AI keys we manage — your data passes through our infrastructure but we own the API relationship. If you prefer, you can bring your own AI API keys from Google AI, Anthropic, DALL·E, or Perplexity. The tradeoff is a direct privacy relationship with the AI provider — but at the cost of Dashello's monitoring, optimization, and safeguards.</em></p>
+
+      <p>Dashello provides private AI API keys to all users out of the box. These keys are managed by us — we handle rate limits, request optimization, monitoring, and prompt formatting. When you use these private keys, your data still flows through the AI provider (just as it would with any AI request), but Dashello sits in the middle as the technical operator. This means we can ensure consistent quality, manage errors, and log activity for compliance and support.</p>
+      <p>You can optionally add your own AI API keys under <strong>Settings → AI</strong> in your dashboard. When you do this, a few things change:</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0">
+        <div style="background:rgba(5,132,236,0.06);border:1px solid rgba(5,132,236,0.2);border-radius:12px;padding:20px">
+          <h3 style="font-size:14px;font-weight:700;color:#0468BE;margin-bottom:8px"><i class="ti ti-shield-check" style="font-size:16px;vertical-align:-2px;margin-right:6px" aria-hidden="true"></i> Using Dashello's private AI keys</h3>
+          <ul style="font-size:13px;color:#444;line-height:1.7">
+            <li>Dashello manages the API relationship with providers</li>
+            <li>Quality monitoring, rate limiting, and error handling included</li>
+            <li>Requests are logged for compliance and support</li>
+            <li>You don't need your own account with any AI provider</li>
+            <li>Zero setup — AI works out of the box when enabled</li>
+          </ul>
+        </div>
+        <div style="background:rgba(5,132,236,0.06);border:1px solid rgba(5,132,236,0.2);border-radius:12px;padding:20px">
+          <h3 style="font-size:14px;font-weight:700;color:#0468BE;margin-bottom:8px"><i class="ti ti-key" style="font-size:16px;vertical-align:-2px;margin-right:6px" aria-hidden="true"></i> Using your own AI API key</h3>
+          <ul style="font-size:13px;color:#444;line-height:1.7">
+            <li>Direct privacy relationship between you and the AI provider</li>
+            <li>Requests bypass Dashello's optimization and monitoring</li>
+            <li>You control rate limits, billing, and usage thresholds</li>
+            <li>Requires an active account with the provider (Google AI, Anthropic, etc.)</li>
+            <li>Dashello cannot provide support for AI quality or latency issues</li>
+          </ul>
+        </div>
+      </div>
+
+      <p><strong>Privacy implications of using your own key:</strong> When you use your own key, AI requests still originate from your device through Dashello's infrastructure, but the API call is authenticated with your personal key. This means the AI provider sees the request as coming from you directly. You are responsible for the provider's usage policies, billing, and data retention settings. If you later remove your key, Dashello falls back to its private keys automatically — no data loss, no interruption.</p>
+
+      <p>Both options keep your dashboard data within Dashello. The difference is only in who holds the API relationship with the AI provider — us or you.</p>
+
+      <div class="highlight-box" style="margin-top:20px">
+        <p><i class="ti ti-info-circle" style="font-size:15px;vertical-align:-2px;margin-right:6px" aria-hidden="true"></i> You can switch between private and personal AI keys at any time in Settings → AI. No data is lost when switching. By default, all accounts use Dashello's private AI keys.</p>
+      </div>
     </div>
 
     <div class="policy-section" id="section-5">
