@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Schema & SEO Audit | Dashello</title>
+<style>
+:root {
+  --red: #DC2626;
+  --green: #16A34A;
+  --blue: #0584EC;
+  --bg: #f5f5f5;
+  --card: #fff;
+  --text: #222;
+  --muted: #666;
+  --border: #ddd;
+  --mono: 'SF Mono', SFMono-Regular, ui-monospace, monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+.container{max-width:960px;margin:0 auto;padding:0 20px 60px}
+
+/* Header */
+.header{background:#064E3B;color:#fff;padding:32px 20px 28px;margin-bottom:28px}
+.header-inner{max-width:960px;margin:0 auto}
+.header h1{font-size:clamp(22px,3vw,30px);font-weight:800;letter-spacing:-0.5px}
+.header .sub{font-size:14px;color:rgba(255,255,255,0.75);margin-top:4px}
+
+/* Stat cards */
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}
+.stat-card{background:var(--card);border-radius:10px;padding:20px;border:1px solid var(--border)}
+.stat-card .num{font-size:28px;font-weight:800;color:var(--blue)}
+.stat-card .label{font-size:12px;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:0.5px}
+
+/* Sections */
+.section{margin-bottom:28px}
+.section h2{font-size:clamp(17px,2vw,20px);font-weight:800;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.tag-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.tag-item{background:var(--card);border-radius:8px;padding:14px 16px;border:1px solid var(--border);font-size:13px}
+.tag-item .key{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px}
+.tag-item .val{font-size:13px;color:var(--text);word-break:break-all}
+.tag-item .val.missing{color:var(--red);font-style:italic}
+
+/* Crawler badges */
+.crawler-group{margin-bottom:14px}
+.crawler-group h3{font-size:13px;font-weight:700;margin-bottom:6px;color:var(--text)}
+.badge-row{display:flex;gap:6px;flex-wrap:wrap}
+.badge{font-family:var(--mono);font-size:11px;padding:4px 10px;border-radius:999px;font-weight:600}
+.badge-green{background:#DCFCE7;color:#166534}
+.badge-red{background:#FEE2E2;color:#991B1B}
+.badge-gray{background:#F3F4F6;color:#6B7280}
+
+/* Details/sections for pages */
+details.page-detail{margin-bottom:12px;background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+details.page-detail summary{padding:14px 16px;cursor:pointer;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px;user-select:none}
+details.page-detail summary:hover{background:#FAFAFA}
+details.page-detail summary::-webkit-details-marker{display:none}
+details.page-detail summary::before{content:'+';display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background:var(--blue);color:#fff;border-radius:5px;font-size:14px;line-height:1;flex-shrink:0;transition:transform 0.15s}
+details.page-detail[open] summary::before{content:'\2212'}
+.page-type-badge{font-size:10px;font-weight:700;text-transform:uppercase;padding:2px 8px;border-radius:4px;letter-spacing:0.5px;white-space:nowrap}
+.type-home{background:#DBEAFE;color:#1E40AF}
+.type-about{background:#FEF3C7;color:#92400E}
+.type-contact{background:#FCE7F3;color:#BE185D}
+.type-jobs{background:#E0E7FF;color:#3730A3}
+.type-privacy{background:#FEE2E2;color:#991B1B}
+.type-pricing{background:#DCFCE7;color:#166534}
+.type-docs{background:#F3E8FF;color:#7C3AED}
+.type-blog{background:#E6F1FB;color:#0468BE}
+.type-blogpost{background:#FFF7ED;color:#C2410C}
+.ld-count{font-size:11px;color:var(--muted);margin-left:auto;font-weight:500}
+
+.detail-body{padding:0 16px 16px}
+.ld-block{margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.ld-block:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.ld-block h4{font-size:14px;font-weight:700;color:var(--blue);margin-bottom:8px}
+.ld-id{font-family:var(--mono);font-size:11px;color:var(--muted);font-weight:400;margin-left:6px}
+.prop-table{width:100%;border-collapse:collapse;font-size:12px}
+.prop-table td{padding:5px 8px;border-bottom:1px solid #F3F4F6;vertical-align:top}
+.prop-table td:first-child{font-family:var(--mono);color:#166534;font-weight:600;white-space:nowrap;width:1%}
+.prop-table td:last-child{color:var(--text)}
+.prop-table .bool-ok{color:var(--green)}
+.prop-table .bool-no{color:var(--red)}
+.prop-table .array-item{display:inline-block;margin-right:4px;margin-bottom:2px}
+
+.no-schema{font-style:italic;color:var(--muted);font-size:13px}
+
+/* Type inventory */
+.inv-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+.inv-table th{text-align:left;padding:8px 12px;background:#F9FAFB;border-bottom:2px solid #E5E7EB;font-size:11px;font-weight:700;text-transform:uppercase;color:var(--muted);letter-spacing:0.5px}
+.inv-table td{padding:8px 12px;border-bottom:1px solid #F3F4F6;vertical-align:top}
+.inv-table td:first-child{font-family:var(--mono);font-weight:600}
+.inv-table td:last-child{color:var(--muted);font-size:12px}
+
+/* Gaps */
+.gap-table{width:100%;border-collapse:collapse;font-size:12px}
+.gap-table th{text-align:left;padding:8px 12px;background:#FEF2F2;border-bottom:2px solid #FECACA;font-size:11px;font-weight:700;text-transform:uppercase;color:var(--red);letter-spacing:0.5px}
+.gap-table td{padding:8px 12px;border-bottom:1px solid #F3F4F6;vertical-align:top}
+.gap-table td:first-child{font-weight:600;white-space:nowrap}
+.gap-table td:nth-child(2){font-family:var(--mono);font-size:11px}
+.gap-table td:last-child{font-size:12px}
+
+/* GEO */
+.geo-table{width:100%;border-collapse:collapse;font-size:13px}
+.geo-table th{text-align:left;padding:8px 12px;background:#F0FDF4;border-bottom:2px solid #DCFCE7;font-size:11px;font-weight:700;text-transform:uppercase;color:var(--green);letter-spacing:0.5px}
+.geo-table td{padding:10px 12px;border-bottom:1px solid #F3F4F6;vertical-align:top}
+.geo-table .status-ok{color:var(--green);font-weight:700}
+.geo-table .status-partial{color:#D97706;font-weight:700}
+.geo-table .status-missing{color:var(--red);font-weight:700}
+
+/* Validation links */
+.val-links{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.val-link{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;text-decoration:none;color:var(--text);font-size:13px;font-weight:600;transition:border 0.15s}
+.val-link:hover{border-color:var(--blue)}
+.val-link .desc{font-size:11px;color:var(--muted);font-weight:400;margin-top:2px}
+
+/* Footer */
+.footer{text-align:center;padding:24px 20px;color:var(--muted);font-size:12px;border-top:1px solid var(--border);margin-top:8px}
+
+/* Responsive */
+@media(max-width:768px){
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .tag-grid{grid-template-columns:1fr}
+  .val-links{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .stat-grid{grid-template-columns:1fr}
+}
+
+/* Print */
+@media print{
+  body{background:#fff}
+  .header{background:#064E3B!important;-webkit-print-color-adjust:exact}
+  .stat-card,.tag-item,.details,.page-detail{border:1px solid #ccc!important;page-break-inside:avoid}
+  details.page-detail[open]{page-break-inside:auto}
+  summary::before{display:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <h1>Schema &amp; SEO Audit</h1>
+    <div class="sub">Dashello — Comprehensive page-by-page GEO &amp; structured data inventory</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- SUMMARY GRID -->
+  <div class="stat-grid">
+    <div class="stat-card"><div class="num">14</div><div class="label">Total Pages Indexed</div></div>
+    <div class="stat-card"><div class="num">5</div><div class="label">Unique JSON-LD @types</div></div>
+    <div class="stat-card"><div class="num">0</div><div class="label">Person/Organization Schemas</div></div>
+    <div class="stat-card"><div class="num">6</div><div class="label">BreadcrumbLists</div></div>
+    <div class="stat-card"><div class="num">6</div><div class="label">FAQ/HowTo/Q&amp;A Pages</div></div>
+    <div class="stat-card"><div class="num">0</div><div class="label">AI Crawlers Allowed</div></div>
+  </div>
+
+  <!-- GLOBAL SEO ASSETS -->
+  <div class="section">
+    <h2>Global SEO Assets</h2>
+    <div class="tag-grid">
+      <div class="tag-item">
+        <div class="key">robots.txt</div>
+        <div class="val missing">MISSING — No robots.txt found</div>
+      </div>
+      <div class="tag-item">
+        <div class="key">sitemap.xml</div>
+        <div class="val">14 URLs, monthly changefreq (blog: weekly), no &lt;lastmod&gt; dates</div>
+      </div>
+      <div class="tag-item">
+        <div class="key">llms.txt / llms-full.txt</div>
+        <div class="val missing">MISSING</div>
+      </div>
+      <div class="tag-item">
+        <div class="key">Favicon</div>
+        <div class="val missing">MISSING — No favicon.ico or icon PNG</div>
+      </div>
+      <div class="tag-item">
+        <div class="key">manifest.json</div>
+        <div class="val missing">MISSING</div>
+      </div>
+      <div class="tag-item">
+        <div class="key">apple-touch-icon</div>
+        <div class="val missing">MISSING</div>
+      </div>
+      <div class="tag-item">
+        <div class="key">RSS / Atom Feed</div>
+        <div class="val missing">MISSING</div>
+      </div>
+      <div class="tag-item">
+        <div class="key">Redirects (_redirects / netlify.toml / vercel.json)</div>
+        <div class="val missing">MISSING</div>
+      </div>
+      <div class="tag-item">
+        <div class="key">Default Meta Robots</div>
+        <div class="val">None — no &lt;meta name="robots"&gt; anywhere</div>
+      </div>
+      <div class="tag-item">
+        <div class="key">Site Language</div>
+        <div class="val">&lt;html lang="en"&gt; — English (no hreflang)</div>
+      </div>
+      <div class="tag-item">
+        <div class="key">Email (visible)</div>
+        <div class="val">contact@dashello.co (privacy page), hello@dashello.co (dev page)</div>
+      </div>
+      <div class="tag-item">
+        <div class="key">Phone (visible)</div>
+        <div class="val missing">None visible on any page</div>
+      </div>
+      <div class="tag-item">
+        <div class="key">OG Image Path</div>
+        <div class="val">images/2023/08/5.png (blog index only) — blog posts use Unsplash URLs</div>
+      </div>
+      <div class="tag-item">
+        <div class="key">Twitter Card Default</div>
+        <div class="val">summary_large_image (blog pages only)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI CRAWLER ALLOW LIST -->
+  <div class="section">
+    <h2>AI Crawler Allow List</h2>
+    <div class="tag-item" style="margin-bottom:12px">
+      <div class="key">robots.txt Status</div>
+      <div class="val missing">No robots.txt exists. All crawlers (AI and traditional) have unrestricted access. This means Anthropic/ClaudeBot, OpenAI/GPTBot, Google-Extended, Meta, PerplexityBot, and all other AI crawlers can freely index every page with no restrictions.</div>
+    </div>
+    <div class="crawler-group">
+      <h3>Anthropic (0 allow, 0 disallow)</h3>
+      <div class="badge-row"><span class="badge badge-gray">ClaudeBot — unrestricted</span></div>
+    </div>
+    <div class="crawler-group">
+      <h3>OpenAI (0 allow, 0 disallow)</h3>
+      <div class="badge-row">
+        <span class="badge badge-gray">GPTBot — unrestricted</span>
+        <span class="badge badge-gray">ChatGPT-User — unrestricted</span>
+      </div>
+    </div>
+    <div class="crawler-group">
+      <h3>Google (0 allow, 0 disallow)</h3>
+      <div class="badge-row"><span class="badge badge-gray">Google-Extended — unrestricted</span></div>
+    </div>
+    <div class="crawler-group">
+      <h3>Meta (0 allow, 0 disallow)</h3>
+      <div class="badge-row"><span class="badge badge-gray">Meta-ExternalAgent — unrestricted</span></div>
+    </div>
+    <div class="crawler-group">
+      <h3>Other AI Crawlers (all unrestricted)</h3>
+      <div class="badge-row">
+        <span class="badge badge-gray">PerplexityBot</span>
+        <span class="badge badge-gray">cohere-ai</span>
+        <span class="badge badge-gray">CCBot</span>
+        <span class="badge badge-gray">Bytespider</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE-BY-PAGE SCHEMA DETAIL -->
+  <div class="section">
+    <h2>Page-by-Page Schema Detail</h2>
+
+    <!-- 1. Homepage -->
+    <details class="page-detail">
+      <summary><span class="page-type-badge type-home">Homepage</span> / <span class="ld-count">0 JSON-LD blocks</span></summary>
+      <div class="detail-body">
+        <p class="no-schema">No structured data on this page.</p>
+        <table class="prop-table" style="margin-top:12px">
+          <tr><td>title</td><td>Dashello — Understand Your Data</td></tr>
+          <tr><td>meta description</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>canonical</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>og:title</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>og:image</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>twitter:card</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>meta robots</td><td><span class="bool-no">MISSING</span></td></tr>
+        </table>
+      </div>
+    </details>
+
+    <!-- 2. About -->
+    <details class="page-detail">
+      <summary><span class="page-type-badge type-about">About</span> /about <span class="ld-count">0 JSON-LD blocks</span></summary>
+      <div class="detail-body">
+        <p class="no-schema">No structured data on this page.</p>
+        <table class="prop-table" style="margin-top:12px">
+          <tr><td>title</td><td>About — Dashello</td></tr>
+          <tr><td>meta description</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>canonical</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>og:title</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>og:image</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>twitter:card</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>meta robots</td><td><span class="bool-no">MISSING</span></td></tr>
+        </table>
+      </div>
+    </details>
+
+    <!-- 3. Contact -->
+    <details class="page-detail">
+      <summary><span class="page-type-badge type-contact">Contact</span> /contact <span class="ld-count">0 JSON-LD blocks</span></summary>
+      <div class="detail-body">
+        <p class="no-schema">No structured data on this page.</p>
+        <table class="prop-table" style="margin-top:12px">
+          <tr><td>title</td><td>Contact — Dashello</td></tr>
+          <tr><td>meta description</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>canonical</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>og:title</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>og:image</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>twitter:card</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>meta robots</td><td><span class="bool-no">MISSING</span></td></tr>
+        </table>
+      </div>
+    </details>
+
+    <!-- 4. Jobs -->
+    <details class="page-detail">
+      <summary><span class="page-type-badge type-jobs">Jobs</span> /jobs <span class="ld-count">0 JSON-LD blocks</span></summary>
+      <div class="detail-body">
+        <p class="no-schema">No structured data on this page.</p>
+        <table class="prop-table" style="margin-top:12px">
+          <tr><td>title</td><td>Jobs — Dashello</td></tr>
+          <tr><td>meta description</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>canonical</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>og:title</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>og:image</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>twitter:card</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>meta robots</td><td><span class="bool-no">MISSING</span></td></tr>
+        </table>
+      </div>
+    </details>
+
+    <!-- 5. Privacy -->
+    <details class="page-detail">
+      <summary><span class="page-type-badge type-privacy">Privacy Policy</span> /privacy <span class="ld-count">0 JSON-LD blocks</span></summary>
+      <div class="detail-body">
+        <p class="no-schema">No structured data on this page.</p>
+        <table class="prop-table" style="margin-top:12px">
+          <tr><td>title</td><td>Privacy &amp; Security — Dashello</td></tr>
+          <tr><td>meta description</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>canonical</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>og:title</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>og:image</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>twitter:card</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>meta robots</td><td><span class="bool-no">MISSING</span></td></tr>
+        </table>
+      </div>
+    </details>
+
+    <!-- 6. Pricing -->
+    <details class="page-detail">
+      <summary><span class="page-type-badge type-pricing">Pricing</span> /pricing/ <span class="ld-count">0 JSON-LD blocks</span></summary>
+      <div class="detail-body">
+        <p class="no-schema">No structured data on this page.</p>
+        <table class="prop-table" style="margin-top:12px">
+          <tr><td>title</td><td>Pricing — Dashello</td></tr>
+          <tr><td>meta description</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>canonical</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>og:title</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>og:image</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>twitter:card</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>meta robots</td><td><span class="bool-no">MISSING</span></td></tr>
+        </table>
+      </div>
+    </details>
+
+    <!-- 7. API Docs -->
+    <details class="page-detail">
+      <summary><span class="page-type-badge type-docs">API Docs</span> /dev <span class="ld-count">0 JSON-LD blocks</span></summary>
+      <div class="detail-body">
+        <p class="no-schema">No structured data on this page.</p>
+        <table class="prop-table" style="margin-top:12px">
+          <tr><td>title</td><td>API Documentation — Dashello</td></tr>
+          <tr><td>meta description</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>canonical</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>og:title</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>og:image</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>twitter:card</td><td><span class="bool-no">MISSING</span></td></tr>
+          <tr><td>meta robots</td><td><span class="bool-no">MISSING</span></td></tr>
+        </table>
+      </div>
+    </details>
+
+    <!-- 8. Blog Index -->
+    <details class="page-detail" open>
+      <summary><span class="page-type-badge type-blog">Blog Index</span> /blog/ <span class="ld-count">1 JSON-LD block</span></summary>
+      <div class="detail-body">
+        <table class="prop-table" style="margin-bottom:16px">
+          <tr><td>title</td><td>Dashello Blog — Integration Guides, Tips &amp; Product Updates</td></tr>
+          <tr><td>meta description</td><td><span class="bool-ok">PRESENT</span></td></tr>
+          <tr><td>canonical</td><td>https://dashello.co/blog/</td></tr>
+          <tr><td>og:title</td><td><span class="bool-ok">PRESENT</span></td></tr>
+          <tr><td>og:image</td><td>https://dashello.co/images/2023/08/5.png</td></tr>
+          <tr><td>og:type</td><td>website</td></tr>
+          <tr><td>twitter:card</td><td>summary_large_image</td></tr>
+          <tr><td>meta robots</td><td><span class="bool-no">MISSING</span></td></tr>
+        </table>
+        <div class="ld-block">
+          <h4>CollectionPage</h4>
+          <table class="prop-table">
+            <tr><td>name</td><td>Dashello Blog</td></tr>
+            <tr><td>description</td><td>Integration guides, product updates, and tips for making better business decisions with your data.</td></tr>
+            <tr><td>url</td><td>https://dashello.co/blog/</td></tr>
+            <tr><td>about</td><td>Thing: "Dashello integrations and business dashboard tips"</td></tr>
+          </table>
+        </div>
+      </div>
+    </details>
+
+    <!-- 9-14. Blog Posts -->
+    <details class="page-detail" open>
+      <summary><span class="page-type-badge type-blogpost">Blog Post</span> /blog/zapier-integration/ <span class="ld-count">3 JSON-LD blocks</span></summary>
+      <div class="detail-body">
+        <table class="prop-table" style="margin-bottom:16px">
+          <tr><td>title</td><td>How to Connect Any App to Dashello Using Zapier</td></tr>
+          <tr><td>meta description</td><td><span class="bool-ok">PRESENT</span></td></tr>
+          <tr><td>canonical</td><td>https://dashello.co/blog/zapier-integration/</td></tr>
+          <tr><td>og:type</td><td>article</td></tr>
+          <tr><td>og:image</td><td>Unsplash CDN URL</td></tr>
+          <tr><td>twitter:card</td><td>summary_large_image</td></tr>
+        </table>
+        <div class="ld-block">
+          <h4>BlogPosting</h4>
+          <table class="prop-table">
+            <tr><td>headline</td><td>How to Connect Any App to Dashello Using Zapier</td></tr>
+            <tr><td>description</td><td><span class="bool-ok">PRESENT</span></td></tr>
+            <tr><td>image</td><td>3 Unsplash URLs (1200w, 600w, 400w)</td></tr>
+            <tr><td>datePublished</td><td>2026-06-19T10:00:00-05:00</td></tr>
+            <tr><td>dateModified</td><td>2026-06-19T10:00:00-05:00</td></tr>
+            <tr><td>author</td><td><span style="color:var(--red)">Organization</span>: Dashello — should be Person</td></tr>
+            <tr><td>publisher</td><td>Organization: Dashello</td></tr>
+          </table>
+        </div>
+        <div class="ld-block">
+          <h4>HowTo</h4>
+          <table class="prop-table">
+            <tr><td>name</td><td>How to Connect Dashello to Zapier</td></tr>
+            <tr><td>estimatedTime</td><td>PT10M</td></tr>
+            <tr><td>steps</td><td>6 steps: Get API key, Accept invite, Choose trigger, Configure webhook, Map fields, Test &amp; publish</td></tr>
+            <tr><td>tool</td><td>Dashello account, Zapier account</td></tr>
+          </table>
+        </div>
+        <div class="ld-block">
+          <h4>BreadcrumbList</h4>
+          <table class="prop-table">
+            <tr><td>item 1</td><td>Home → https://dashello.co/</td></tr>
+            <tr><td>item 2</td><td>Blog → https://dashello.co/blog/</td></tr>
+            <tr><td>item 3</td><td>Zapier Integration → https://dashello.co/blog/zapier-integration/</td></tr>
+          </table>
+        </div>
+      </div>
+    </details>
+
+    <details class="page-detail" open>
+      <summary><span class="page-type-badge type-blogpost">Blog Post</span> /blog/google-sheets-integration/ <span class="ld-count">3 JSON-LD blocks</span></summary>
+      <div class="detail-body">
+        <table class="prop-table" style="margin-bottom:16px">
+          <tr><td>title</td><td>How to Connect Google Sheets to Dashello</td></tr>
+          <tr><td>meta description</td><td><span class="bool-ok">PRESENT</span></td></tr>
+          <tr><td>canonical</td><td>PRESENT</td></tr>
+          <tr><td>og:type</td><td>article</td></tr>
+          <tr><td>og:image</td><td>Unsplash CDN URL</td></tr>
+          <tr><td>twitter:card</td><td>summary_large_image</td></tr>
+        </table>
+        <div class="ld-block"><h4>BlogPosting</h4><table class="prop-table"><tr><td>headline</td><td>Present</td></tr><tr><td>datePublished</td><td>2026-06-30T10:00:00-05:00</td></tr><tr><td>author</td><td><span style="color:var(--red)">Organization</span>: Dashello</td></tr></table></div>
+        <div class="ld-block"><h4>HowTo</h4><table class="prop-table"><tr><td>name</td><td>How to Connect Google Sheets to Dashello</td></tr><tr><td>steps</td><td>4 steps</td></tr><tr><td>estimatedTime</td><td>PT10M</td></tr></table></div>
+        <div class="ld-block"><h4>BreadcrumbList</h4><table class="prop-table"><tr><td>items</td><td>3 items: Home → Blog → Google Sheets Integration</td></tr></table></div>
+      </div>
+    </details>
+
+    <details class="page-detail" open>
+      <summary><span class="page-type-badge type-blogpost">Blog Post</span> /blog/quickbooks-integration/ <span class="ld-count">3 JSON-LD blocks</span></summary>
+      <div class="detail-body">
+        <table class="prop-table" style="margin-bottom:16px">
+          <tr><td>title</td><td>How to Connect QuickBooks to Dashello</td></tr>
+          <tr><td>meta description</td><td><span class="bool-ok">PRESENT</span></td></tr>
+          <tr><td>canonical</td><td>PRESENT</td></tr>
+          <tr><td>og:type</td><td>article</td></tr>
+          <tr><td>og:image</td><td>Unsplash CDN URL</td></tr>
+          <tr><td>twitter:card</td><td>summary_large_image</td></tr>
+        </table>
+        <div class="ld-block"><h4>BlogPosting</h4><table class="prop-table"><tr><td>author</td><td><span style="color:var(--red)">Organization</span>: Dashello</td></tr></table></div>
+        <div class="ld-block"><h4>HowTo</h4><table class="prop-table"><tr><td>steps</td><td>4 steps</td></tr><tr><td>estimatedTime</td><td>PT10M</td></tr></table></div>
+        <div class="ld-block"><h4>BreadcrumbList</h4><table class="prop-table"><tr><td>items</td><td>3 items</td></tr></table></div>
+      </div>
+    </details>
+
+    <details class="page-detail" open>
+      <summary><span class="page-type-badge type-blogpost">Blog Post</span> /blog/stripe-integration/ <span class="ld-count">3 JSON-LD blocks</span></summary>
+      <div class="detail-body">
+        <table class="prop-table" style="margin-bottom:16px">
+          <tr><td>title</td><td>How to Connect Stripe to Dashello</td></tr>
+          <tr><td>meta description</td><td><span class="bool-ok">PRESENT</span></td></tr>
+          <tr><td>canonical</td><td>PRESENT</td></tr>
+          <tr><td>og:type</td><td>article</td></tr>
+          <tr><td>og:image</td><td>Unsplash CDN URL</td></tr>
+          <tr><td>twitter:card</td><td>summary_large_image</td></tr>
+        </table>
+        <div class="ld-block"><h4>BlogPosting</h4><table class="prop-table"><tr><td>author</td><td><span style="color:var(--red)">Organization</span>: Dashello</td></tr></table></div>
+        <div class="ld-block"><h4>HowTo</h4><table class="prop-table"><tr><td>steps</td><td>5 steps</td></tr><tr><td>estimatedTime</td><td>PT10M</td></tr></table></div>
+        <div class="ld-block"><h4>BreadcrumbList</h4><table class="prop-table"><tr><td>items</td><td>3 items</td></tr></table></div>
+      </div>
+    </details>
+
+    <details class="page-detail" open>
+      <summary><span class="page-type-badge type-blogpost">Blog Post</span> /blog/make-integration/ <span class="ld-count">3 JSON-LD blocks</span></summary>
+      <div class="detail-body">
+        <table class="prop-table" style="margin-bottom:16px">
+          <tr><td>title</td><td>How to Connect Make to Dashello</td></tr>
+          <tr><td>meta description</td><td><span class="bool-ok">PRESENT</span></td></tr>
+          <tr><td>canonical</td><td>PRESENT</td></tr>
+          <tr><td>og:type</td><td>article</td></tr>
+          <tr><td>og:image</td><td>Unsplash CDN URL</td></tr>
+          <tr><td>twitter:card</td><td>summary_large_image</td></tr>
+        </table>
+        <div class="ld-block"><h4>BlogPosting</h4><table class="prop-table"><tr><td>author</td><td><span style="color:var(--red)">Organization</span>: Dashello</td></tr></table></div>
+        <div class="ld-block"><h4>HowTo</h4><table class="prop-table"><tr><td>steps</td><td>5 steps</td></tr><tr><td>estimatedTime</td><td>PT8M</td></tr></table></div>
+        <div class="ld-block"><h4>BreadcrumbList</h4><table class="prop-table"><tr><td>items</td><td>3 items</td></tr></table></div>
+      </div>
+    </details>
+
+    <details class="page-detail" open>
+      <summary><span class="page-type-badge type-blogpost">Blog Post</span> /blog/jobtread-integration/ <span class="ld-count">3 JSON-LD blocks</span></summary>
+      <div class="detail-body">
+        <table class="prop-table" style="margin-bottom:16px">
+          <tr><td>title</td><td>How to Connect JobTread to Dashello</td></tr>
+          <tr><td>meta description</td><td><span class="bool-ok">PRESENT</span></td></tr>
+          <tr><td>canonical</td><td>PRESENT</td></tr>
+          <tr><td>og:type</td><td>article</td></tr>
+          <tr><td>og:image</td><td>Unsplash CDN URL</td></tr>
+          <tr><td>twitter:card</td><td>summary_large_image</td></tr>
+        </table>
+        <div class="ld-block"><h4>BlogPosting</h4><table class="prop-table"><tr><td>author</td><td><span style="color:var(--red)">Organization</span>: Dashello</td></tr></table></div>
+        <div class="ld-block"><h4>HowTo</h4><table class="prop-table"><tr><td>steps</td><td>5 steps</td></tr><tr><td>estimatedTime</td><td>PT10M</td></tr></table></div>
+        <div class="ld-block"><h4>BreadcrumbList</h4><table class="prop-table"><tr><td>items</td><td>3 items</td></tr></table></div>
+      </div>
+    </details>
+
+  </div>
+
+  <!-- JSON-LD TYPE INVENTORY -->
+  <div class="section">
+    <h2>JSON-LD Type Inventory</h2>
+    <table class="inv-table">
+      <thead><tr><th>@type</th><th>Count</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td>BlogPosting</td><td>6</td><td>Blog article structured data — enables rich results for article headline, image, date, author</td></tr>
+        <tr><td>HowTo</td><td>6</td><td>Step-by-step instructional content — enables How-to rich results in search</td></tr>
+        <tr><td>BreadcrumbList</td><td>6</td><td>Breadcrumb navigation — enables breadcrumb rich results in search</td></tr>
+        <tr><td>CollectionPage</td><td>1</td><td>Blog index page — signals a collection of related pages</td></tr>
+        <tr><td>Thing</td><td>1</td><td>Used as about property on CollectionPage — minimal schema, few signals</td></tr>
+    </table>
+    <p style="margin-top:12px;font-size:12px;color:var(--muted)">Total JSON-LD blocks: 19. Most commonly used types are BlogPosting, HowTo, and BreadcrumbList — all restricted to the 6 blog posts. No Organization, WebSite, Person, LocalBusiness, or Service schemas anywhere.</p>
+  </div>
+
+  <!-- DATA GAPS -->
+  <div class="section">
+    <h2>Data Gaps &amp; Action Items</h2>
+    <table class="gap-table">
+      <thead><tr><th>Gap</th><th>Location</th><th>Recommended Action</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>No meta description</td>
+          <td>/ , /about , /contact , /jobs , /privacy , /pricing/ , /dev</td>
+          <td>Add &lt;meta name="description"&gt; to all 7 pages. Write unique 150-160 char descriptions for each.</td>
+        </tr>
+        <tr>
+          <td>No canonical URL</td>
+          <td>/ , /about , /contact , /jobs , /privacy , /pricing/ , /dev</td>
+          <td>Add &lt;link rel="canonical"&gt; on all 7 pages pointing to their full URL.</td>
+        </tr>
+        <tr>
+          <td>No Open Graph tags</td>
+          <td>/ , /about , /contact , /jobs , /privacy , /pricing/ , /dev</td>
+          <td>Add og:title, og:description, og:url, og:type, and og:image to all 7 pages.</td>
+        </tr>
+        <tr>
+          <td>No Twitter Card tags</td>
+          <td>/ , /about , /contact , /jobs , /privacy , /pricing/ , /dev</td>
+          <td>Add twitter:card, twitter:title, twitter:description, and twitter:image to all 7 pages.</td>
+        </tr>
+        <tr>
+          <td>No structured data on 7 pages</td>
+          <td>/ , /about , /contact , /jobs , /privacy , /pricing/ , /dev</td>
+          <td>Add WebSite schema to homepage. Add Organization schema to /about. Add BreadcrumbList to all pages.</td>
+        </tr>
+        <tr>
+          <td>Blog author is Organization, not Person</td>
+          <td>All 6 blog posts</td>
+          <td>Create a named Person schema (e.g. "Dashello Team") instead of Organization as author per Google best practices.</td>
+        </tr>
+        <tr>
+          <td>No robots.txt file</td>
+          <td>Root of site</td>
+          <td>Create robots.txt with allow/disallow rules. Include AI crawler directives (ClaudeBot, GPTBot, Google-Extended).</td>
+        </tr>
+        <tr>
+          <td>No favicon</td>
+          <td>Root of site</td>
+          <td>Add favicon.ico and 32x32/16x16 PNG favicons.</td>
+        </tr>
+        <tr>
+          <td>No SiteNavigationElement schema</td>
+          <td>All pages</td>
+          <td>Add SiteNavigationElement JSON-LD to help search engines understand site structure.</td>
+        </tr>
+        <tr>
+          <td>No WebSite schema</td>
+          <td>/ (homepage)</td>
+          <td>Add WebSite schema with potentialAction/SearchAction for sitelinks search box.</td>
+        </tr>
+        <tr>
+          <td>Sitemap missing &lt;lastmod&gt;</td>
+          <td>sitemap.xml</td>
+          <td>Add &lt;lastmod&gt; dates to all 14 URLs in sitemap.</td>
+        </tr>
+        <tr>
+          <td>No Organization schema</td>
+          <td>/about or /</td>
+          <td>Add Organization schema with name, url, logo, sameAs (social profiles).</td>
+        </tr>
+        <tr>
+          <td>No OG image on blog posts using local files</td>
+          <td>All 6 blog posts</td>
+          <td>Blog OG images use Unsplash CDN URLs. Consider using locally hosted images for reliability.</td>
+        </tr>
+        <tr>
+          <td>No hreflang tags</td>
+          <td>All pages</td>
+          <td>If only English, add &lt;link rel="alternate" hreflang="en"&gt; self-referencing tags.</td>
+        </tr>
+        <tr>
+          <td>No manifest.json</td>
+          <td>Root of site</td>
+          <td>Add manifest.json for PWA/branded appearance when saved to home screen.</td>
+        </tr>
+        <tr>
+          <td>Stripe publishable key visible in source</td>
+          <td>/pricing/</td>
+          <td>Stripe publishable keys are safe to expose (they're meant to be public). No action needed.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- GEO READINESS CHECKLIST -->
+  <div class="section">
+    <h2>GEO Readiness Checklist</h2>
+    <table class="geo-table">
+      <thead><tr><th>#</th><th>Signal</th><th>Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Answer-first content</td>
+          <td><span class="status-partial">Partial</span></td>
+          <td>Blog posts answer integration questions directly. Homepage is marketing copy, not Q&A format.</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Named authorship</td>
+          <td><span class="status-missing">Missing</span></td>
+          <td>All 6 blog posts use Organization as author. No Person schemas exist anywhere on the site. GEO engines prioritize content with verified human authors.</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Structured Q&A</td>
+          <td><span class="status-partial">Partial</span></td>
+          <td>6 HowTo schemas on blog posts. No FAQPage or QAPage schemas. Add FAQPage to homepage or a dedicated FAQ page.</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>NAP consistency</td>
+          <td><span class="status-missing">Missing</span></td>
+          <td>No name/address/phone in any schema. No PostalAddress or telephone property anywhere. Email visible on privacy page only.</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Social proof</td>
+          <td><span class="status-missing">Missing</span></td>
+          <td>No AggregateRating, Review, or testimonial schemas on any page.</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>Service catalog</td>
+          <td><span class="status-missing">Missing</span></td>
+          <td>No hasOfferCatalog or Service types in any schema. Dashello is a SaaS product but has no structured service descriptions.</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>Geo signals</td>
+          <td><span class="status-missing">Missing</span></td>
+          <td>No GeoCoordinates, areaServed, or PostalAddress in any schema. Even for a SaaS, service area signals help GEO visibility.</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>Multilingual signals</td>
+          <td><span class="status-missing">Missing</span></td>
+          <td>No knowsLanguage, inLanguage, or hreflang tags. Site is English-only but doesn't declare it in schema.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- VALIDATION LINKS -->
+  <div class="section">
+    <h2>Validation Links</h2>
+    <div class="val-links">
+      <a class="val-link" href="https://validator.schema.org/" target="_blank" rel="noopener">Schema.org Validator<div class="desc">Paste any page URL to validate all structured data</div></a>
+      <a class="val-link" href="https://search.google.com/test/rich-results" target="_blank" rel="noopener">Google Rich Results Test<div class="desc">Check which rich results a page is eligible for</div></a>
+      <a class="val-link" href="https://search.google.com/search-console" target="_blank" rel="noopener">Google Search Console<div class="desc">Submit sitemaps and monitor indexing</div></a>
+      <a class="val-link" href="https://www.bing.com/webmasters" target="_blank" rel="noopener">Bing Webmaster Tools<div class="desc">Submit sitemaps and monitor Bing indexing</div></a>
+    </div>
+    <p style="margin-top:12px;font-size:12px;color:var(--muted)">Recommended to test: homepage, blog index, and all 6 blog posts individually. Blog posts have the most structured data and are eligible for How-to and Breadcrumb rich results.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  Generated on July 2, 2026 &mdash; Dashello &mdash; Internal use only
+</div>
+
+</body>
+</html>
