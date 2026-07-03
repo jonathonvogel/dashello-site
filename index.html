@@ -116,7 +116,7 @@ nav{background:transparent;padding:0 5%;height:112px;display:flex;align-items:ce
    ============================================================ */
 .clarity{background:var(--off);padding:80px 5%}
 .clarity-inner{max-width:1080px;margin:0 auto}
-.clarity-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:8px}
+.clarity-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-bottom:8px}
 .clarity-card{background:#fff;border-radius:16px;padding:28px 24px;border:1px solid rgba(5,132,236,0.1);transition:transform 0.2s}
 .clarity-card:hover{transform:translateY(-4px)}
 .cc-icon{width:48px;height:48px;background:#E6F1FB;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
@@ -469,38 +469,40 @@ footer{background:#000;padding:48px 5%}
 
 
 <!-- ============================================================
-     CLARITY SECTION
+     WHAT I DO SECTION
      ============================================================ -->
 <section class="clarity">
   <div class="clarity-inner">
     <div style="text-align:center">
-      <div class="section-tag">The Solution</div>
-      <h2 class="section-title">Get the clarity you need</h2>
-      <p class="section-sub">Everything you need to understand your business, in one place.</p>
+      <div class="section-tag">What I Do</div>
+      <h2 class="section-title">Sites I've built</h2>
+      <p class="section-sub">Handcrafted websites and tools that help businesses work better.</p>
     </div>
     <div class="clarity-grid">
-      <div class="clarity-card">
-        <div class="cc-icon"><i class="ti ti-chart-line" aria-hidden="true"></i></div>
-        <div class="cc-title">Clear Data</div>
-        <div class="cc-text">Keep track of important metrics with real-time tracking of your goals. No spreadsheet expertise required.</div>
-      </div>
-      <div class="clarity-card">
-        <div class="cc-icon"><i class="ti ti-plug" aria-hidden="true"></i></div>
-        <div class="cc-title">Data Sync</div>
-        <div class="cc-text">Sync all the data from your different apps into one place. One dashboard, every number that matters.</div>
-      </div>
-      <div class="clarity-card">
-        <div class="cc-icon"><i class="ti ti-bulb" aria-hidden="true"></i></div>
-        <div class="cc-title">Better Decisions</div>
-        <div class="cc-text">Know you are making the right decisions to grow your business. With the data to back it up.</div>
-      </div>
-    </div>
-    <div class="btn-center">
-      <a href="#" class="btn-blue btn-global">Try For Free</a>
+      <a href="https://catholicartistdirectory.com" class="clarity-card" style="text-decoration:none;color:inherit">
+        <div class="cc-icon"><i class="ti ti-world" aria-hidden="true"></i></div>
+        <div class="cc-title">Catholic Artist Directory</div>
+        <div class="cc-text">Connecting Catholic artists with parishes and communities. A searchable directory of talented creators.</div>
+      </a>
+      <a href="https://catholicartdirectory.com" class="clarity-card" style="text-decoration:none;color:inherit">
+        <div class="cc-icon"><i class="ti ti-palette" aria-hidden="true"></i></div>
+        <div class="cc-title">Catholic Art Directory</div>
+        <div class="cc-text">A curated gallery of Catholic artwork. Browse and discover sacred art from artists around the world.</div>
+      </a>
+      <a href="https://estimatesend.com" class="clarity-card" style="text-decoration:none;color:inherit">
+        <div class="cc-icon"><i class="ti ti-file-invoice" aria-hidden="true"></i></div>
+        <div class="cc-title">EstimateSend</div>
+        <div class="cc-text">Simple estimates that get approved fast. Create, send, and track professional estimates in minutes.</div>
+      </a>
+      <a href="https://moesandmore.com" class="clarity-card" style="text-decoration:none;color:inherit">
+        <div class="cc-icon"><i class="ti ti-building-store" aria-hidden="true"></i></div>
+        <div class="cc-title">Moe's &amp; More</div>
+        <div class="cc-text">A local favorite for quality products and friendly service. Built to help their business grow online.</div>
+      </a>
     </div>
   </div>
 </section>
-<!-- END: CLARITY SECTION -->
+<!-- END: WHAT I DO SECTION -->
 
 
 <!-- ============================================================
